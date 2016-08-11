@@ -10,17 +10,10 @@ import '@angular/common';
 import '@angular/http';
 import '@angular/router';
 
-import {PLATFORM_DIRECTIVES} from '@angular/core';
-import {ANGULAR_DIRECTIVES, ANGULAR_PROVIDERS} from './vendor/angular';
-import {MATERIAL_DIRECTIVES, MATERIAL_PROVIDERS} from './vendor/material';
+import {ANGULAR_MODULES} from './vendor/angular';
+import {MATERIAL_MODULES} from './vendor/material';
 
-const VENDOR_DIRECTIVES = [
-    ...MATERIAL_DIRECTIVES,
-    ...ANGULAR_DIRECTIVES,
-];
-
-export const VENDOR_PROVIDERS = [
-    ...MATERIAL_PROVIDERS,
-    ...ANGULAR_PROVIDERS,
-    {provide: PLATFORM_DIRECTIVES, useValue: VENDOR_DIRECTIVES, multi: true},
+export const VENDOR_MODULES = [
+    ...MATERIAL_MODULES,
+    ...ANGULAR_MODULES,
 ];
