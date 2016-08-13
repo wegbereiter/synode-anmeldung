@@ -2,8 +2,10 @@ var pathUtil = require('path');
 var HtmlWebpackPlugin = require('html-webpack-plugin');
 var webpack = require('webpack');
 
-function root(...path) {
-    return pathUtil.join(__dirname, ...path);
+function root() {
+    var path = Array.prototype.slice.call(arguments);
+    path.unshift(__dirname);
+    return pathUtil.join.apply(pathUtil, path);
 }
 
 module.exports = {
