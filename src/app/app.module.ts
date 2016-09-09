@@ -1,10 +1,15 @@
 import {NgModule} from '@angular/core';
-import {VENDOR_MODULES} from '../vendor';
 
-import {AppComponent} from './app.component';
+import {ANGULAR_MODULES} from '../vendor/angular';
+import {MATERIAL_MODULES} from '../vendor/material';
+
+import {AppComponent} from './components/app.component';
 
 @NgModule({
-    imports: VENDOR_MODULES,
+    imports: [
+        ...ANGULAR_MODULES,
+        ...MATERIAL_MODULES,
+    ],
     declarations: [
         AppComponent,
     ],

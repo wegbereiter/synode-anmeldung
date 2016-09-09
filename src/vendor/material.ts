@@ -11,6 +11,7 @@ import {MdListModule} from '@angular2-material/list';
 import {MdGridListModule} from '@angular2-material/grid-list';
 import {MdTabsModule} from '@angular2-material/tabs';
 import {MdSidenavModule} from '@angular2-material/sidenav';
+import {MdTooltipModule} from '@angular2-material/tooltip';
 
 export const MATERIAL_MODULES = [
     MdCardModule,
@@ -26,4 +27,5 @@ export const MATERIAL_MODULES = [
     MdGridListModule,
     MdTabsModule,
     MdSidenavModule,
+    MdTooltipModule,
 ];
