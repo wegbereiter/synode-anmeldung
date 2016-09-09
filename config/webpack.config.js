@@ -4,6 +4,7 @@ var webpack = require('webpack');
 
 function root() {
     var path = Array.prototype.slice.call(arguments);
+    path.unshift('..');
     path.unshift(__dirname);
     return pathUtil.join.apply(pathUtil, path);
 }
@@ -22,7 +23,7 @@ module.exports = {
     devtool: 'eval-source-map', // 'source-map',
     debug: true,
     resolve: {
-        extensions: ['', '.ts', '.js'],
+        extensions: ['', '.ts', '.js', '.json'],
     },
     module: {
         loaders: [
@@ -36,7 +37,8 @@ module.exports = {
                 loader: 'file?name=resources/[name].[hash].[ext]'
             },
             {test: /\.json$/, loader: 'json'},
-            {test: /\.html$/, loader: 'html'},
+            {test: /\.html$/, loader: 'html?minimize=false'},
+            {test: /\.css$/, loader: 'raw'},
         ],
     },
     plugins: [

@@ -5,8 +5,8 @@
   "main": "index.js",
   "scripts": {
     "clean": "rimraf node_modules dist && npm cache clean",
-    "start": "webpack-dev-server --inline --progress --port 8080",
-    "build": "rimraf dist && webpack --progress --profile --bail",
+    "start": "webpack-dev-server --inline --progress --port 8080 --config config/webpack.dev.config.js",
+    "build": "rimraf dist && webpack --progress --profile --bail --config config/webpack.dev.config.js",
     "lint": "tslint --force \"src/**/*.ts\""
   },
   "author": "",
