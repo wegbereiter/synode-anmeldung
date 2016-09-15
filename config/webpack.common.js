@@ -54,6 +54,10 @@ module.exports = function (options) {
             new webpack.optimize.CommonsChunkPlugin({
                 name: ['vendor'],
             }),
+            new webpack.ContextReplacementPlugin(
+                /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+                helpers.root('./src') // location of your src
+            ),
         ],
         devServer: {
             contentBase: './src',
