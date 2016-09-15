@@ -1,6 +1,6 @@
 import {
     inject,
-    TestBed
+    TestBed,
 } from '@angular/core/testing';
 
 import {AppComponent} from './app.component';
@@ -11,6 +11,6 @@ describe('App component', () => {
     }));
 
     it('is successful', inject([AppComponent], (app: AppComponent) => {
-        expect(1).toBe(1);
+        expect(1).toBe(1)
     }));
 });

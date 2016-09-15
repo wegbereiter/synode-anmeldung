@@ -1,7 +1,5 @@
-import {provideRouter, RouterConfig} from '@angular/router';
+import {Routes} from '@angular/router';
 
-const routes: RouterConfig = [];
-
-export const appRouterProviders = [
-    // provideRouter(routes),
+export const appRoutes: Routes = [
+    // {path: '', component: Home},
 ];
