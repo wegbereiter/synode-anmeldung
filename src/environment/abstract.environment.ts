@@ -1,6 +1,6 @@
-import {AppEnviornment} from './environment.interface';
+import {AppEnvironment} from './environment.interface';
 
-export abstract class AbstractEnvironment implements AppEnviornment {
+export abstract class AbstractEnvironment implements AppEnvironment {
     public preInit() {
         // Default does nothing
     }
