@@ -1,0 +1,80 @@
+<div class="row">
+    <div class="col-sm-6">
+        <form class="form-horizontal" (ngSubmit)="sendForm()">
+            <div class="form-group" *ngFor="let field of fields" >
+                <label
+                        class="control-label col-lg-5"
+                        [class.required]="field.required"
+                        [attr.for]="'con_register_' + field.name"
+                        *ngIf="field.type !== 'checkbox'">
+                    {{ field.label }}
+                </label>
+                <div class="col-lg-7" [ngSwitch]="field.type" [ngClass]="{'col-lg-offset-5': field.type === 'checkbox'}">
+                        <textarea
+                                *ngSwitchCase="'textarea'"
+                                [id]="'con_register_' + field.name"
+                                [name]="field.name"
+                                [required]="field.required"
+                                class="form-control"
+                                [(ngModel)]="data[field.name]">
+                        </textarea>
+                    <select
+                            *ngSwitchCase="'select'"
+                            [id]="'con_register_' + field.name"
+                            [name]="field.name"
+                            [required]="field.required"
+                            class="form-control"
+                            [(ngModel)]="data[field.name]">
+                        <option *ngFor="let option of field.options" [value]="option">{{ option }}</option>
+                    </select>
+                    <div class="checkbox" *ngSwitchCase="'checkbox'">
+                        <label [class.required]="field.required">
+                            <input
+                                    type="checkbox"
+                                    [name]="field.name"
+                                    [required]="field.required"
+                                    [value]="true"
+                                    [(ngModel)]="data[field.name]">
+                            {{ field.label }}
+                        </label>
+                    </div>
+                    <input
+                            *ngSwitchDefault
+                            [id]="'con_register_' + field.name"
+                            [name]="field.name"
+                            [required]="field.required"
+                            [type]="field.type || 'text'"
+                            class="form-control"
+                            [(ngModel)]="data[field.name]" />
+                    <span class="help-block" *ngIf="!!field.help">{{ field.help }}</span>
+                </div>
+            </div>
+
+            <div class="form-group ">
+                <div class="col-lg-7 col-lg-offset-5">
+                    <div class="checkbox">
+                        <label class="required">
+                            <input
+                                    type="checkbox"
+                                    name="accept"
+                                    required="required"
+                                    [value]="true"
+                                    [(ngModel)]="data.accept">
+                            Ich habe die <a [href]="terms" target="_blank">AGB</a> gelesen und akzeptiere sie!
+                        </label>
+                    </div>
+                </div>
+            </div>
+
+            <div class="form-group">
+                <div class="col-lg-offset-5 col-lg-7">
+                    <button type="submit" class="btn btn-primary">
+                        Anmelden
+                    </button>
+                </div>
+            </div>
+
+            <p>* Pflichtfelder</p>
+        </form>
+    </div>
+</div>

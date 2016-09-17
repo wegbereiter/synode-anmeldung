@@ -1,0 +1,15 @@
+label {
+    display: inline;
+}
+
+label.required:after {
+    content: '*';
+}
+
+.loader {
+    text-align: center;
+}
+
+.loader md-progress-circle {
+    display: inline-block;
+}

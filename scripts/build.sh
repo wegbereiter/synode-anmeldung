@@ -3,4 +3,4 @@
 SCRIPTDIR=`cd $(dirname "$0"); pwd`
 source "$SCRIPTDIR/common.sh"
 
-execute_node npm run build $@ && docker build .
+docker build -t examinator/synode-anmeldung . && docker push examinator/synode-anmeldung

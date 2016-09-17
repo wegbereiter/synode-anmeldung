@@ -1,0 +1,115 @@
+<div class="container">
+    <div class="row">
+        <div class="col-xs-12">
+            <p class="text-center">
+                <img src="images/symbol.png" style="width: 350px; margin: 15px;" />
+            </p>
+            <h1>Glaubensfragen <small>Die vierte Synode des Ordens der Wegbereiter</small></h1>
+
+            <h2>Informationen</h2>
+            <p>
+                Ihr Lieben,
+            </p>
+
+            <p>
+                wir laden zur vierten Synode unseres Ordens. Euch erwartet ein kuscheliges Wochenende mit
+                Hausunterbringung und Vollverpfegung. Keine Geruchsbelästigung durch Untote, kein sanftes
+                "Rakh-Rakh-Rakh" aus dem Garten – nur Zeit für Gespräche, Lehrspiel und Unfug. Eben alles,
+                was einem Plot sonst so gern zersprengt.
+            </p>
+
+            <p>
+                Das von uns bespielte Haus liegt wunderschön hinter Hecken an einem weitläufigen Waldgebiet
+                und verfügt über einen großen Garten. In 6 Zimmern stehen insgesamt 22 Gästebetten zur Verfügung.
+            </p>
+        </div>
+
+        <div class="row">
+            <dl class="dl-horizontal col-sm-6">
+                <dt>Con-Art</dt>
+                <dd><p>Ambiente</p></dd>
+
+                <dt>Datum</dt>
+                <dd><p>27.01.2017 &ndash; 29.01.2017</p></dd>
+
+                <dt>Location</dt>
+                <dd>
+                    <address>
+                        <strong>Karl-Lauterbach-Haus</strong><br>
+                        Auf dem Hau 52<br>
+                        B-4750 Bütgenbach-Küchelscheid<br>
+                        (ja, Belgien ist richtig, nicht erschrecken!)<br>
+                        <a target="_blank" href="http://www.karl-lauterbach-haus.de" target="_blank">Webseite</a>
+                    </address>
+                </dd>
+
+                <dt>Preis</dt>
+                <dd>
+                    <p>
+                        70,00 &euro; inkl. Verpflegung und Alkohol* für Spieler<br/>
+                        35,00 &euro; inkl. Verpflegung und Alkohol* für NSCs**<br/>
+                        <small>
+                            * Solange der Vorrat reicht<br/>
+                            ** NSC Anmeldungen nur nach vorheriger Rücksprache!
+                        </small>
+                    </p>
+                </dd>
+
+                <dt>Regelwerk</dt>
+                <dd>
+                    <p>
+                        Aktuelles Mythodea-Regelwerk
+                    </p>
+                </dd>
+
+                <dt>Orga</dt>
+                <dd>
+                    <p>
+                        Ludmilla Reimer, <a href="mailto:janine.schmitz89@gmail.com">Janine Schmitz</a>,<br/>
+                        <a href="mailto:Paul.Maanen@gmail.com">Paul Maanen</a>, Philipp Reimer
+                    </p>
+                </dd>
+
+                <dt>Plätze</dt>
+                <dd>
+                    ca. 20 Plätze für Gäste. Es gibt mehr Einladungen als Betten.<br/>
+                    <strong>Wer sich zuerst anmeldet und bezahlt, bekommt eine kleine Aufmerksamkeit!</strong>
+                </dd>
+            </dl>
+            <div class="col-sm-6 text-right">
+                <a href="http://kampagnenspiel.live-adventure.de/offizielle" target="_blank"><img src="images/mythodea_siegel.png" /></a>
+            </div>
+        </div>
+    </div>
+
+    <h2 id="registration">Anmeldung</h2>
+
+    <div class="loader" *ngIf="isLoading">
+        <md-progress-circle mode="indeterminate"></md-progress-circle>
+    </div>
+    <div class="panel panel-success" *ngIf="!!isSuccessful">
+        <div class="panel-heading">
+            <h3 class="panel-title">Vielen Dank!</h3>
+        </div>
+        <div class="panel-body">
+            <p>
+                Wir haben deine Anmeldung erhalten und werden sie bearbeiten.
+                Du erhälst dann eine E-Mail mit den Kontodaten für die Überweisung
+                oder eine Information zu deinem Platz in der Warteliste von uns.
+                Ab dem erhalt der E-Mail hast du 14 Tage Zeit um den Betrag zu überweisen
+                oder dein Platz wird wieder vergeben.
+            </p>
+        </div>
+    </div>
+    <div class="panel panel-danger" *ngIf="!!error">
+        <div class="panel-heading">
+            <h3 class="panel-title">Fehler</h3>
+        </div>
+        <div class="panel-body">
+            <p>Folgender Fehler ist aufgetreten:</p>
+            <blockquote>{{ error }}</blockquote>
+            <p>Bitte versuche es erneut oder benachrichtige die Orga wenn der Fehler weiterhin auftritt!</p>
+        </div>
+    </div>
+    <register-form [data]="data" (post)="sendForm($event)" *ngIf="!isLoading && !isSuccessful"></register-form>
+</div>

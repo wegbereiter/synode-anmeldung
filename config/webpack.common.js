@@ -5,7 +5,7 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ForkCheckerPlugin = require('awesome-typescript-loader').ForkCheckerPlugin;
 
 const METADATA = {
-    title: 'Angular2 Starter',
+    title: 'Orden der Wegbereiter - Anmeldung',
     baseUrl: '/',
     isDevServer: helpers.isWebpackDevServer()
 };
@@ -34,7 +34,7 @@ module.exports = function (options) {
                     exclude: [/\.(spec|e2e)\.ts$/, /node_modules/]
                 },
                 {
-                    test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico)$/,
+                    test: /\.(png|jpe?g|gif|svg|woff|woff2|ttf|eot|ico|pdf)$/,
                     loader: 'file?name=resources/[name].[hash].[ext]'
                 },
                 {test: /\.json$/, loader: 'json'},
@@ -50,6 +50,7 @@ module.exports = function (options) {
             new HtmlWebpackPlugin({
                 template: './src/index.html',
                 chunksSortMode: 'dependency',
+                favicon: './src/favicon.ico',
             }),
             new webpack.optimize.CommonsChunkPlugin({
                 name: ['vendor'],

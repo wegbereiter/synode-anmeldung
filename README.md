@@ -1,4 +1,4 @@
-# Angular2 webpack starter
+# Synode 
 
 This is a simple Angular2 starter based on webpack. This is loosly based on the [preboot/angular2-webpack](https://github.com/preboot/angular2-webpack) starter but uses code styles and project structures that are more to my personal liking.
 

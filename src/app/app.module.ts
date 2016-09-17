@@ -6,7 +6,8 @@ import {RouterModule} from '@angular/router';
 
 import {MATERIAL_MODULES} from '../vendor/material';
 
-import {AppComponent} from './components/app.component';
+import {AppComponent} from './components/app/app.component';
+import {FormComponent} from './components/form/form.component';
 import {appRoutes} from './app.routes';
 
 @NgModule({
@@ -20,6 +21,7 @@ import {appRoutes} from './app.routes';
     ],
     declarations: [
         AppComponent,
+        FormComponent,
     ],
     bootstrap: [AppComponent],
 })
