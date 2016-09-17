@@ -30,17 +30,27 @@ class GoogleApi {
     authenticate() {
         return new Promise((resolve, reject) => {
             this.spreadSheet.useServiceAccountAuth(this.credentials, (error) => {
-                if (error) reject(error);
-                else resolve();
+                if (error) {
+                    console.error('Authentication error:', error);
+                    reject(new Error(error));
+                } else {
+                    resolve();
+                }
             });
         });
     }
 
     register(person) {
+        const data = this.transformData(person);
+        console.info('Register person:', data);
         return new Promise((resolve, reject) => {
-            this.spreadSheet.addRow(1, this.transformData(person), (error) => {
-                if (error) reject(error);
-                else resolve();
+            this.spreadSheet.addRow(1, data, (error) => {
+                if (error) {
+                    console.error('Register error:', error, data);
+                    reject(new Error(error));
+                } else {
+                    resolve();
+                }
             });
         });
     }
@@ -51,6 +61,8 @@ class GoogleApi {
             const targetKey = columns[key];
             output[targetKey] = data[key];
 
+            if (output[targetKey] === null) output[targetKey] = '';
+
             if (output[targetKey] === false) output[targetKey] = 'Nein';
             else if (output[targetKey] === true) output[targetKey] = 'Ja';
             else if (!output[targetKey].match(dateRegExp)) output[targetKey] = '\'' + output[columns[key]];
@@ -60,6 +72,6 @@ class GoogleApi {
 
         return output;
     }
-};
+}
 
 module.exports = GoogleApi;

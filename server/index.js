@@ -41,7 +41,7 @@ if (commander.key && commander.user && commander.sheet) {
         api.authenticate()
             .then(() => api.register(req.body))
             .then(() => res.status(200).send('Success!'))
-            .catch((e) => res.status(500).send(e));
+            .catch((e) => res.status(500).send(e.message));
     });
 } else {
     console.warn('Warning: /register endpoint is disabled');
