@@ -14,16 +14,8 @@ commander
     .option('-k, --key [privateKey]', 'The private key for the google API user')
     .parse(process.argv);
 
-const key = JSON.parse(commander.key);
-const email = commander.user;
-const sheetId = commander.sheet;
-
-console.log({client_email: email, private_key: key}, sheetId);
-
-const api = new GoogleApi({client_email: email, private_key: key}, sheetId);
 const app = express();
 const env = process.env.NODE_ENV || 'development';
-
 
 if (env === 'development') {
     const config = require('../config/webpack.dev')(env);
@@ -38,12 +30,22 @@ if (env === 'production') {
 
 app.use(bodyParser.json());
 
-app.post('/register', (req, res) => {
-    api.authenticate()
-        .then(() => api.register(req.body))
-        .then(() => res.status(200).send('Success!'))
-        .catch((e) => res.status(500).send(e));
-});
+if (commander.key && commander.user && commander.sheet) {
+    const key = JSON.parse(commander.key);
+    const email = commander.user;
+    const sheetId = commander.sheet;
+
+    const api = new GoogleApi({client_email: email, private_key: key}, sheetId);
+
+    app.post('/register', (req, res) => {
+        api.authenticate()
+            .then(() => api.register(req.body))
+            .then(() => res.status(200).send('Success!'))
+            .catch((e) => res.status(500).send(e));
+    });
+} else {
+    console.warn('Warning: /register endpoint is disabled');
+}
 
 app.listen(commander.port, () => {
     console.log(`Listening to port ${commander.port}!`);

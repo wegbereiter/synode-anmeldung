@@ -1,11 +1,3 @@
-label {
-    display: inline;
-}
-
-label.required:after {
-    content: '*';
-}
-
 .loader {
     text-align: center;
 }

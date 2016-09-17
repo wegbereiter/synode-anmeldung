@@ -3,6 +3,7 @@ import {Component, Input, Output, EventEmitter} from '@angular/core';
 @Component({
     selector: 'register-form',
     template: require('./form.html'),
+    styles: [require('./form.css')],
 })
 export class FormComponent {
     @Input() data = {};
@@ -27,6 +28,14 @@ export class FormComponent {
     private terms = require('./downloads/agb.pdf');
 
     sendForm() {
-        this.post.emit(this.data);
+        const normalized = {};
+        Object.keys(this.data).forEach((key) => {
+            const field = <any> this.fields.filter(field => field.name === key).pop();
+            if (field && field.type === 'checkbox') {
+                normalized[key] = !!this.data[key];
+            }
+            else normalized[key] = this.data[key];
+        });
+        this.post.emit(normalized);
     }
 }

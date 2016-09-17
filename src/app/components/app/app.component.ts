@@ -35,8 +35,8 @@ export class AppComponent {
         this.http = http;
     }
 
-    public sendForm() {
-        const body = JSON.stringify(this.normalize());
+    public sendForm(data) {
+        const body = JSON.stringify(data);
         const headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers});
 
@@ -54,12 +54,5 @@ export class AppComponent {
                 this.error = res._body;
                 console.log(res._body)
             });
-    }
-
-    private normalize() {
-        Object.keys(this.data).forEach((key) => {
-            if (!this.data[key]) this.data[key] = false;
-        });
-        return this.data;
     }
 }

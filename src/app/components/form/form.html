@@ -1,7 +1,11 @@
 <div class="row">
     <div class="col-sm-6">
-        <form class="form-horizontal" (ngSubmit)="sendForm()">
-            <div class="form-group" *ngFor="let field of fields" >
+        <form class="form-horizontal" #form="ngForm" (ngSubmit)="sendForm()" novalidate>
+            <div
+                    class="form-group has-feedback"
+                    *ngFor="let field of fields"
+                    [class.has-error]="field.type !== 'checkbox' && form.controls[field.name]?.invalid && form.controls[field.name]?.touched"
+                    [class.has-success]="field.type !== 'checkbox' && form.controls[field.name]?.valid && form.controls[field.name]?.touched">
                 <label
                         class="control-label col-lg-5"
                         [class.required]="field.required"
@@ -39,6 +43,15 @@
                         </label>
                     </div>
                     <input
+                            *ngSwitchCase="'email'"
+                            [id]="'con_register_' + field.name"
+                            [name]="field.name"
+                            [required]="field.required"
+                            pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                            [type]="field.type || 'text'"
+                            class="form-control"
+                            [(ngModel)]="data[field.name]" />
+                    <input
                             *ngSwitchDefault
                             [id]="'con_register_' + field.name"
                             [name]="field.name"
@@ -46,29 +59,53 @@
                             [type]="field.type || 'text'"
                             class="form-control"
                             [(ngModel)]="data[field.name]" />
-                    <span class="help-block" *ngIf="!!field.help">{{ field.help }}</span>
+                    <span
+                            *ngIf="field.type !== 'checkbox' && form.controls[field.name]?.valid && form.controls[field.name]?.touched"
+                            class="glyphicon glyphicon-ok form-control-feedback"></span>
+                    <span
+                            *ngIf="field.type !== 'checkbox' && form.controls[field.name]?.invalid && form.controls[field.name]?.touched"
+                            class="glyphicon glyphicon-remove form-control-feedback"></span>
+                    <p class="help-block" *ngIf="!!field.help">{{ field.help }}</p>
+                    <p
+                            class="help-block"
+                            *ngIf="form.controls[field.name]?.errors?.required && form.controls[field.name]?.touched">
+                        Dieses Feld ist ein Pflichtfeld!
+                    </p>
+                    <p
+                            class="help-block"
+                            *ngIf="field.type === 'email' && form.controls[field.name]?.errors?.pattern && form.controls[field.name]?.touched">
+                        Das ist keine gültige E-Mail-Adresse!
+                    </p>
                 </div>
             </div>
 
-            <div class="form-group ">
+            <div
+                    class="form-group"
+                    [class.has-error]="!data.accept && form.controls.accept?.touched"
+                    [class.has-success]="data.accept">
                 <div class="col-lg-7 col-lg-offset-5">
                     <div class="checkbox">
                         <label class="required">
                             <input
                                     type="checkbox"
                                     name="accept"
-                                    required="required"
+                                    required
                                     [value]="true"
                                     [(ngModel)]="data.accept">
                             Ich habe die <a [href]="terms" target="_blank">AGB</a> gelesen und akzeptiere sie!
                         </label>
+                        <p
+                                class="help-block"
+                                *ngIf="!data.accept && form.controls.accept?.touched">
+                            Du musst die AGB akzeptieren um dich anzumelden!
+                        </p>
                     </div>
                 </div>
             </div>
 
             <div class="form-group">
                 <div class="col-lg-offset-5 col-lg-7">
-                    <button type="submit" class="btn btn-primary">
+                    <button type="submit" class="btn btn-primary" [disabled]="!data.accept || !form?.form?.valid">
                         Anmelden
                     </button>
                 </div>

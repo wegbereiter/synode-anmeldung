@@ -1,0 +1,7 @@
+label {
+    display: inline;
+}
+
+label.required:after {
+    content: '*';
+}
