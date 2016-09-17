@@ -1,5 +1,26 @@
 # Synode 
 
-This is a simple Angular2 starter based on webpack. This is loosly based on the [preboot/angular2-webpack](https://github.com/preboot/angular2-webpack) starter but uses code styles and project structures that are more to my personal liking.
+Dies ist die Anmelde-Seite für Synode der Wegbereiter.
+Anmeldungen werden in eine Google-Docs Tabelle gespeichert.
+Um die Applikation auszuführen gibt es mehrere Möglichkeiten:
 
-This isn't complete yet and is missing a couple of important features (like tests).
+## Node
+
+Hierfür muss node.js auf dem Server installiert sein.
+- Applikation auf dem Server auschecken
+- Im Hauptverzeichnis `npm run build` ausführen
+- Server starten mit `npm start -- -s {google docs sheet id} -p {port}`
+
+## Docker
+
+Dieses Repository kommt mit einer `Dockerfile` um ein entsprechendes image zu erzeugen.
+Dazu wird ein Dockerfähiger Server benötigt und Docker muss auf dem Rechner eingerichtet sein.
+Für windows muss ggf. die ubuntu bash aktiviert werden.
+- `./scripts/build.sh` ausführen
+- Container für das generierte image `wegbereiter/synode-anmeldung` auf dem Server starten
+- `credentials.json` muss gemounted werden
+
+## Weiteres
+
+In beiden Varianten muss sichergestellt sein, das der Server im Hintergrund liegt und
+das er im Falle eines Fehlers neu gestartet wird.

@@ -10,9 +10,17 @@ commander
     .version('0.0.1')
     .option('-p, --port [port]', 'Port', 80)
     .option('-s, --sheet [sheetId]', 'The ID for the spread sheet')
+    .option('-u, --user [userEmail]', 'The E-Mail for the google API user')
+    .option('-k, --key [privateKey]', 'The private key for the google API user')
     .parse(process.argv);
 
-const api = new GoogleApi(require('./credentials.json'), '1sNy_b6ybxa5q0sosPHELd8NICqf223Cth0ppAVwOZh8');
+const key = JSON.parse(commander.key);
+const email = commander.user;
+const sheetId = commander.sheet;
+
+console.log({client_email: email, private_key: key}, sheetId);
+
+const api = new GoogleApi({client_email: email, private_key: key}, sheetId);
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 

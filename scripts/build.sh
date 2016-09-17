@@ -3,4 +3,4 @@
 SCRIPTDIR=`cd $(dirname "$0"); pwd`
 source "$SCRIPTDIR/common.sh"
 
-docker build -t examinator/synode-anmeldung . && docker push examinator/synode-anmeldung
+docker build -t wegbereiter/synode-anmeldung . && docker push wegbereiter/synode-anmeldung

@@ -8,6 +8,6 @@ WORKDIR /usr/src/app
 
 RUN npm run build
 
-CMD ["sh", "-c", "npm start -s ${TARGET_SHEET}"]
+CMD ["sh", "-c", "npm start -- -s ${TARGET_SHEET} -u ${GOOGLE_USER} '--key=\"${GOOGLE_KEY}\"'"]
 
 EXPOSE 80
