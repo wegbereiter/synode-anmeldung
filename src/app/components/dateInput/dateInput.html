@@ -1,0 +1,15 @@
+<div class="wrapper">
+    <div class="day">
+        <select (change)="updateDate()" [(ngModel)]="currentDay" (focus)="focus()" (blur)="blur()" class="form-control">
+            <option *ngFor="let day of days" [value]="day">{{ day }}</option>
+        </select>
+    </div>
+    <div class="month">
+        <select (change)="updateDate()" [(ngModel)]="currentMonth" (focus)="focus()" (blur)="blur()" class="form-control">
+            <option *ngFor="let month of months; let i = index" [value]="i">{{ month }}</option>
+        </select>
+    </div>
+    <div class="year">
+        <input type="number" (change)="updateDate()" [(ngModel)]="currentYear" (focus)="focus()" (blur)="blur()" class="form-control" />
+    </div>
+</div>

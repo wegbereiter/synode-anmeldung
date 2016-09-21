@@ -36,6 +36,7 @@ export class AppComponent {
     }
 
     public sendForm(data) {
+        data.birthday = this.formatDate(data.birthday);
         const body = JSON.stringify(data);
         const headers = new Headers({'Content-Type': 'application/json'});
         let options = new RequestOptions({headers});
@@ -54,5 +55,16 @@ export class AppComponent {
                 this.error = res._body;
                 console.log(res._body)
             });
+    }
+
+    private formatDate(date) {
+        if (date instanceof Date) {
+            return [this.pad(date.getFullYear(), 4), this.pad(date.getMonth()+1, 2), this.pad(date.getDate(), 2)].join('-');
+        }
+        return date;
+    }
+
+    private pad(num, size) {
+        return ('0000000' + num).substr(-size);
     }
 }

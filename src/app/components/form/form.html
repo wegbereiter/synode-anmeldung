@@ -42,6 +42,12 @@
                             {{ field.label }}
                         </label>
                     </div>
+                    <date-input
+                            *ngSwitchCase="'date'"
+                            [name]="field.name"
+                            [required]="field.required"
+                            [(ngModel)]="data[field.name]">
+                    </date-input>
                     <input
                             *ngSwitchCase="'email'"
                             [id]="'con_register_' + field.name"
