@@ -20,7 +20,7 @@
 
             <p>
                 Das von uns bespielte Haus liegt wunderschön hinter Hecken an einem weitläufigen Waldgebiet
-                und verfügt über einen großen Garten. In 6 Zimmern stehen insgesamt 22 Gästebetten zur Verfügung.
+                und verfügt über einen großen Garten. In 6 Zimmern stehen insgesamt 32 Gästebetten zur Verfügung.
             </p>
         </div>
 
@@ -46,7 +46,7 @@
                 <dt>Preis</dt>
                 <dd>
                     <p>
-                        70,00 &euro; inkl. Verpflegung für Spieler<br/>
+                        65,00 &euro; inkl. Verpflegung für Spieler<br/>
                         35,00 &euro; inkl. Verpflegung für NSCs*<br/>
                         <small>
                             * NSC Anmeldungen nur nach vorheriger Rücksprache!
@@ -65,13 +65,18 @@
                 <dd>
                     <p>
                         <a href="mailto:ludmila.roesch@gmail.com">Ludmila Reimer</a>, <a href="mailto:janine.schmitz89@gmail.com">Janine Schmitz</a>,<br/>
-                        <a href="mailto:Paul.Maanen@gmail.com">Paul Maanen</a>, Philipp Reimer
+                        <a href="mailto:Paul.Maanen@gmail.com">Paul Maanen</a>, <a href="mailto:philipp.reimer@rwth-aachen.de">Philipp Reimer</a>
                     </p>
                 </dd>
 
                 <dt>Plätze</dt>
                 <dd>
-                    ca. 20 Plätze für Gäste. Es gibt mehr Einladungen als Betten.<br/>
+                    <span *ngIf="(bedCount$ | async)?.count < 32">Es sind noch <strong>{{ 32 - (bedCount$ | async)?.count }} von 32</strong> Betten verfügbar.</span>
+                    <span *ngIf="(bedCount$ | async)?.count >= 32">
+                        <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste und rutschen nach
+                        falls es Absagen gibt.
+                    </span>
+                    Es gibt mehr Einladungen als Betten.<br/>
                     <strong>Wer sich zuerst anmeldet und bezahlt, bekommt eine kleine Aufmerksamkeit!</strong>
                 </dd>
             </dl>

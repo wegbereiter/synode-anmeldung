@@ -8,6 +8,7 @@ import {MATERIAL_MODULES} from '../vendor/material';
 import {AppComponent} from './components/app/app.component';
 import {FormComponent} from './components/form/form.component';
 import {DateInputComponent} from './components/dateInput/dateInput.component';
+import {DateInputValidatorDirective} from './directives/dateInputValidator/dateInputValidator.directive';
 
 @NgModule({
     imports: [
@@ -21,6 +22,7 @@ import {DateInputComponent} from './components/dateInput/dateInput.component';
         AppComponent,
         FormComponent,
         DateInputComponent,
+        DateInputValidatorDirective,
     ],
     bootstrap: [AppComponent],
 })

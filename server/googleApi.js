@@ -55,6 +55,19 @@ class GoogleApi {
         });
     }
 
+    countRows() {
+        return new Promise((resolve, reject) => {
+            this.spreadSheet.getRows(1, {}, (error, rows) => {
+                if (error) {
+                    console.error('Register error:', error, data);
+                    reject(new Error(error));
+                } else {
+                    resolve(rows.length);
+                }
+            });
+        });
+    }
+
     transformData(data) {
         const output = {};
         Object.keys(columns).forEach((key) => {

@@ -46,6 +46,8 @@
                             *ngSwitchCase="'date'"
                             [name]="field.name"
                             [required]="field.required"
+                            [min]="field.min"
+                            [onlyPast]="true"
                             [(ngModel)]="data[field.name]">
                     </date-input>
                     <input
@@ -81,6 +83,11 @@
                             class="help-block"
                             *ngIf="field.type === 'email' && form.controls[field.name]?.errors?.pattern && form.controls[field.name]?.touched">
                         Das ist keine gültige E-Mail-Adresse!
+                    </p>
+                    <p
+                            class="help-block"
+                            *ngIf="form.controls[field.name]?.errors?.validateDate && form.controls[field.name]?.touched">
+                        Ungültiges Datum!
                     </p>
                 </div>
             </div>

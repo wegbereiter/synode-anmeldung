@@ -1,5 +1,6 @@
 import {Component} from '@angular/core';
 import {Http, Headers, RequestOptions} from '@angular/http';
+import {Observable} from 'rxjs';
 
 @Component({
     selector: 'base-app',
@@ -26,6 +27,7 @@ export class AppComponent {
 
     private isLoading = false;
     private isSuccessful = false;
+    private bedCount$: Observable<any> = null;
 
     private error = null;
 
@@ -33,6 +35,13 @@ export class AppComponent {
 
     constructor(http: Http) {
         this.http = http;
+    }
+
+    public ngOnInit() {
+        this.bedCount$ = Observable.interval(20000)
+            .startWith(0)
+            .switchMap(() => this.http.get('/count'))
+            .map(res => res.json());
     }
 
     public sendForm(data) {
@@ -43,6 +52,7 @@ export class AppComponent {
 
         this.isLoading = true;
         this.error = null;
+
         return this.http
             .post('/register', body, options)
             .toPromise()

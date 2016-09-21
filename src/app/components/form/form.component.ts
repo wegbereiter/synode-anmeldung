@@ -18,7 +18,7 @@ export class FormComponent {
         {name: 'country', required: true, label: 'Land'},
         {name: 'mobile', label: 'Handy-Nummer'},
         {name: 'allergies', label: 'Allergien / Unverträglichkeiten', type: 'textarea'},
-        {name: 'birthday', required: true, label: 'Geburtstag', type: 'date'},
+        {name: 'birthday', required: true, label: 'Geburtstag', type: 'date', min: new Date(1900, 0, 1)},
         {name: 'npc', label: 'NPC', type: 'checkbox', help: 'Bitte nur nach vorheriger Rücksprache!'},
         {name: 'itName', required: true, label: 'IT-Name'},
         {name: 'sigil', required: true, label: 'Siegel', type: 'select', options: ['Keines', 'Osten', 'Norden', 'Westen', 'Süden', 'Mitte']},

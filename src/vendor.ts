@@ -3,6 +3,7 @@ import 'reflect-metadata';
 import 'zone.js/dist/zone';
 //import 'rxjs';
 import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/switchMap';
 
 import '@angular/platform-browser';
 import '@angular/platform-browser-dynamic';

@@ -56,6 +56,7 @@ export class DateInputComponent implements ControlValueAccessor {
     private updateDate() {
         if (this.currentDay !== null && this.currentMonth !== null  && this.currentYear !== null) {
             this.date = new Date(this.currentYear, this.currentMonth, this.currentDay);
+            this.date.setFullYear(this.currentYear);
         } else {
             this.date = null;
         }
