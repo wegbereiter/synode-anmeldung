@@ -20,21 +20,6 @@ const env = process.env.NODE_ENV || 'development';
 
 app.use(bodyParser.json());
 
-if (env === 'development') {
-    const config = require('../config/webpack.dev')(env);
-    app.use(webpackMiddleware(webpack(config), config.devServer));
-}
-
-if (env === 'production') {
-    const root = __dirname + '/../dist';
-    app.use(compression());
-    app.use(express.static(root, {
-        maxage: '365d',
-    }));
-    app.use(historyApiFallback('index.html', {root}))
-}
-
-
 if (commander.key && commander.user && commander.sheet) {
     const key = JSON.parse(commander.key);
     const email = commander.user;
@@ -57,6 +42,20 @@ if (commander.key && commander.user && commander.sheet) {
     });
 } else {
     console.warn('Warning: /register endpoint is disabled');
+}
+
+if (env === 'development') {
+    const config = require('../config/webpack.dev')(env);
+    app.use(webpackMiddleware(webpack(config), config.devServer));
+}
+
+if (env === 'production') {
+    const root = __dirname + '/../dist';
+    app.use(compression());
+    app.use(express.static(root, {
+        maxage: '365d',
+    }));
+    app.use(historyApiFallback('index.html', {root}))
 }
 
 app.listen(commander.port, () => {
