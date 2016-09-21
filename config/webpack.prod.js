@@ -47,7 +47,7 @@ module.exports = function(options) {
                 algorithm: "gzip",
                 test: /\.js$|\.html$/,
                 threshold: 10240,
-                minRatio: 0.8
+                minRatio: 0.8,
             }),
         ],
         tslint: {
