@@ -3,6 +3,10 @@
     margin-right: -.5em;
 }
 
+select.form-control {
+    padding-right: 0;
+}
+
 .day, .month, .year {
     margin-right: .5em;
 }

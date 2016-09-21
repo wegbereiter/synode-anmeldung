@@ -11,7 +11,7 @@
                         [class.required]="field.required"
                         [attr.for]="'con_register_' + field.name"
                         *ngIf="field.type !== 'checkbox'">
-                    {{ field.label }}
+                    <span>{{ field.label }}</span>
                 </label>
                 <div class="col-lg-7" [ngSwitch]="field.type" [ngClass]="{'col-lg-offset-5': field.type === 'checkbox'}">
                         <textarea
@@ -98,7 +98,7 @@
                                     required
                                     [value]="true"
                                     [(ngModel)]="data.accept">
-                            Ich habe die <a [href]="terms" target="_blank">AGB</a> gelesen und akzeptiere sie!
+                            <span>Ich habe die <a [href]="terms" target="_blank">AGB</a> gelesen und akzeptiere sie!</span>
                         </label>
                         <p
                                 class="help-block"

@@ -55,15 +55,28 @@ export class DateInputComponent implements ControlValueAccessor {
 
     private updateDate() {
         if (this.currentDay !== null && this.currentMonth !== null  && this.currentYear !== null) {
-            if (!this.date) {
-                this.date = new Date(this.currentYear, this.currentMonth, this.currentDay);
-            }
+            this.date = new Date(this.currentYear, this.currentMonth, this.currentDay);
         } else {
             this.date = null;
         }
 
         this.propagateChange(this.date);
         this.propagateTouch();
+    }
+
+    updateDay(day) {
+        this.currentDay = day;
+        this.updateDate();
+    }
+
+    updateMonth(month) {
+        this.currentMonth = month;
+        this.updateDate();
+    }
+
+    updateYear(year) {
+        this.currentYear = year;
+        this.updateDate();
     }
 
     public writeValue(value: any) {

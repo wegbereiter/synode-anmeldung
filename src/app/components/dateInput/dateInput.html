@@ -1,15 +1,17 @@
 <div class="wrapper">
     <div class="day">
-        <select (change)="updateDate()" [(ngModel)]="currentDay" (focus)="focus()" (blur)="blur()" class="form-control">
+        <select [ngModel]="currentDay" (ngModelChange)="updateDay($event)" (focus)="focus()" (blur)="blur()" class="form-control">
+            <option disabled selected [value]="null"></option>
             <option *ngFor="let day of days" [value]="day">{{ day }}</option>
         </select>
     </div>
     <div class="month">
-        <select (change)="updateDate()" [(ngModel)]="currentMonth" (focus)="focus()" (blur)="blur()" class="form-control">
+        <select [ngModel]="currentMonth" (ngModelChange)="updateMonth($event)" (focus)="focus()" (blur)="blur()" class="form-control">
+            <option disabled selected [value]="null"></option>
             <option *ngFor="let month of months; let i = index" [value]="i">{{ month }}</option>
         </select>
     </div>
     <div class="year">
-        <input type="number" (change)="updateDate()" [(ngModel)]="currentYear" (focus)="focus()" (blur)="blur()" class="form-control" />
+        <input type="number" [ngModel]="currentYear" (ngModelChange)="updateYear($event)" (focus)="focus()" (blur)="blur()" class="form-control" />
     </div>
 </div>
