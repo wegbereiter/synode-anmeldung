@@ -1,6 +1,5 @@
 const merge = require('webpack-merge');
 const webpack = require('webpack');
-const CompressionPlugin = require('compression-webpack-plugin');
 
 /**
  * Webpack Constants
@@ -41,13 +40,6 @@ module.exports = function(options) {
                 mangle: { screw_ie8 : true, keep_fnames: true }, //prod
                 compress: { screw_ie8: true }, //prod
                 comments: false //prod
-            }),
-            new CompressionPlugin({
-                asset: "[path].gz[query]",
-                algorithm: "gzip",
-                test: /\.js$|\.html$/,
-                threshold: 10240,
-                minRatio: 0.8,
             }),
         ],
         tslint: {

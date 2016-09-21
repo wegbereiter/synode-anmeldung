@@ -1,5 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
+const compression = require('compression');
 const historyApiFallback = require('express-history-api-fallback');
 const webpackMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack');
@@ -17,6 +18,8 @@ commander
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 
+app.use(bodyParser.json());
+
 if (env === 'development') {
     const config = require('../config/webpack.dev')(env);
     app.use(webpackMiddleware(webpack(config), config.devServer));
@@ -24,11 +27,13 @@ if (env === 'development') {
 
 if (env === 'production') {
     const root = __dirname + '/../dist';
-    app.use(express.static(root));
+    app.use(compression());
+    app.use(express.static(root, {
+        maxage: '365d',
+    }));
     app.use(historyApiFallback('index.html', {root}))
 }
 
-app.use(bodyParser.json());
 
 if (commander.key && commander.user && commander.sheet) {
     const key = JSON.parse(commander.key);
