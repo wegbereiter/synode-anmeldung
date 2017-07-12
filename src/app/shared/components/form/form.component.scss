@@ -1,0 +1,15 @@
+md-input-container, md-select {
+    width: 100%;
+}
+
+.formrow {
+    margin-bottom: 1em;
+}
+
+input::-webkit-calendar-picker-indicator{
+    display: none;
+}
+
+input[type="date"]::-webkit-input-placeholder{
+    visibility: hidden !important;
+}

@@ -1,13 +1,14 @@
-import {Component, Input, Output, EventEmitter} from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
-    selector: 'register-form',
-    template: require('./form.html'),
-    styles: [require('./form.css')],
+    selector: 'wb-register-form',
+    templateUrl: './form.component.html',
+    styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
-    @Input() data = {};
-    @Output() post = new EventEmitter();
+    @Input() public data = {};
+    @Output() public post = new EventEmitter();
 
     private fields = [
         {name: 'name', required: true, label: 'Vor- und Nachname'},
@@ -18,14 +19,22 @@ export class FormComponent {
         {name: 'country', required: true, label: 'Land'},
         {name: 'mobile', label: 'Handy-Nummer'},
         {name: 'allergies', label: 'Allergien / Unverträglichkeiten', type: 'textarea'},
-        {name: 'birthday', required: true, label: 'Geburtstag', type: 'date', min: new Date(1900, 0, 1)},
+        {name: 'birthday', required: true, label: 'Geburtstag (YYYY-MM-DD)', type: 'date', min: moment('1900-01-01'), max: moment()},
         {name: 'npc', label: 'NPC', type: 'checkbox', help: 'Bitte nur nach vorheriger Rücksprache!'},
         {name: 'itName', required: true, label: 'IT-Name'},
-        {name: 'sigil', required: true, label: 'Siegel', type: 'select', options: ['Keines', 'Osten', 'Norden', 'Westen', 'Süden', 'Mitte']},
-        {name: 'room', label: 'Ich möchte ein Zimmer mit...', help: 'Wir versuchen allen Wünschen nachzugehen, können aber nichts versprechen.'},
+        {
+            name: 'sigil',
+            required: true,
+            label: 'Siegel',
+            type: 'select',
+            options: ['Keines', 'Osten', 'Norden', 'Westen', 'Süden', 'Mitte'],
+        },
+        {
+            name: 'room',
+            label: 'Ich möchte ein Zimmer mit...',
+            help: 'Wir versuchen allen Wünschen nachzugehen, können aber nichts versprechen.',
+        },
     ];
-
-    private terms = require('./downloads/agb.pdf');
 
     sendForm() {
         const normalized = {};

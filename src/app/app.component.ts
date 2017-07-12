@@ -1,11 +1,11 @@
-import {Component} from '@angular/core';
-import {Http, Headers, RequestOptions} from '@angular/http';
-import {Observable} from 'rxjs';
+import { Component } from '@angular/core';
+import { Observable } from 'rxjs';
+import { Http, Headers, RequestOptions } from '@angular/http';
 
 @Component({
-    selector: 'base-app',
-    template: require('./app.html'),
-    styles: [require('./app.css')],
+    selector: 'wb-root',
+    templateUrl: './app.component.html',
+    styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
     private data = {
@@ -25,30 +25,27 @@ export class AppComponent {
         accept: false,
     };
 
-    private isLoading = false;
-    private isSuccessful = false;
-    private bedCount$: Observable<any> = null;
+    public isLoading = false;
+    public isSuccessful = false;
+    public bedCount$: Observable<any> = null;
 
-    private error = null;
+    public error = null;
 
-    private http: Http;
-
-    constructor(http: Http) {
-        this.http = http;
-    }
+    constructor(private http: Http) {}
 
     public ngOnInit() {
         this.bedCount$ = Observable.interval(20000)
             .startWith(0)
             .switchMap(() => this.http.get('/count'))
-            .map(res => res.json());
+            .map(res => res.json())
+            .do(x => console.log(x));
     }
 
     public sendForm(data) {
-        data.birthday = this.formatDate(data.birthday);
+        data.birthday = data.birthday.format('DD.MM.YYYY');
         const body = JSON.stringify(data);
         const headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({headers});
+        let options = new RequestOptions({ headers });
 
         this.isLoading = true;
         this.error = null;
@@ -65,16 +62,5 @@ export class AppComponent {
                 this.error = res._body;
                 console.log(res._body)
             });
-    }
-
-    private formatDate(date) {
-        if (date instanceof Date) {
-            return [this.pad(date.getFullYear(), 4), this.pad(date.getMonth()+1, 2), this.pad(date.getDate(), 2)].join('-');
-        }
-        return date;
-    }
-
-    private pad(num, size) {
-        return ('0000000' + num).substr(-size);
     }
 }

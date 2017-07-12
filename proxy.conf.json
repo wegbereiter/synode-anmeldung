@@ -1,0 +1,10 @@
+{
+    "/count": {
+        "target": "http://localhost:3000",
+        "secure": false
+    },
+    "/register": {
+        "target": "http://localhost:3000",
+        "secure": false
+    }
+}

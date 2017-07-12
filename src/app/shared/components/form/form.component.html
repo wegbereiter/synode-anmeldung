@@ -1,0 +1,103 @@
+<div class="row">
+    <div class="col-sm-6">
+        <md-card>
+            <form class="form-horizontal" #form="ngForm" (ngSubmit)="sendForm(form)">
+                <div *ngFor="let field of fields" [ngSwitch]="field.type" class="formrow">
+                    <md-input-container *ngSwitchCase="'textarea'">
+                        <textarea
+                                mdInput
+                                rows="4"
+                                [placeholder]="field.label"
+                                [name]="field.name"
+                                [required]="field.required"
+                                [(ngModel)]="data[field.name]">
+                            </textarea>
+                    </md-input-container>
+                    <md-select
+                            *ngSwitchCase="'select'"
+                            [placeholder]="field.label"
+                            [name]="field.name"
+                            [required]="field.required"
+                            [(ngModel)]="data[field.name]">
+                        <md-option *ngFor="let option of field.options" [value]="option">
+                            {{ option }}
+                        </md-option>
+                    </md-select>
+                    <md-checkbox
+                            *ngSwitchCase="'checkbox'"
+                            [name]="field.name"
+                            [required]="field.required"
+                            [(ngModel)]="data[field.name]">
+                        {{ field.label }}
+                    </md-checkbox>
+                    <ng-container *ngSwitchCase="'date'">
+                        <md-input-container>
+                            <input mdInput
+                                   [name]="field.name"
+                                   [placeholder]="field.label"
+                                   [required]="field.required"
+                                   [min]="field.min"
+                                   [max]="field.max"
+                                   [mdDatepicker]="picker"
+                                   [(ngModel)]="data[field.name]">
+                            <button mdSuffix [mdDatepickerToggle]="picker"></button>
+                        </md-input-container>
+                        <md-datepicker #picker></md-datepicker>
+                    </ng-container>
+                    <md-input-container *ngSwitchCase="'email'">
+                        <input
+                                mdInput
+                                [placeholder]="field.label"
+                                [name]="field.name"
+                                [required]="field.required"
+                                [type]="field.type || 'text'"
+                                pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                                [(ngModel)]="data[field.name]" />
+                    </md-input-container>
+                    <md-input-container *ngSwitchDefault>
+                        <input
+                                mdInput
+                                [placeholder]="field.label"
+                                [name]="field.name"
+                                [required]="field.required"
+                                [type]="field.type || 'text'"
+                                [(ngModel)]="data[field.name]" />
+                    </md-input-container>
+                    <ng-container *ngIf="form.controls[field.name]?.touched && !form.controls[field.name]?.valid">
+                        <md-error *ngIf="field.type === 'email' && form?.controls[field.name]?.errors.pattern">
+                            Das ist keine gültige E-Mail-Adresse!
+                        </md-error>
+                        <md-error *ngIf="field.type === 'date' && form?.controls[field.name]?.errors.required">
+                            Das ist kein gültiges Format.<br />Bitte im Format YYYY-MM-DD angeben (z.B. 2017-07-12).
+                        </md-error>
+                        <md-error *ngIf="form?.controls[field.name]?.errors.mdDatepickerMin">
+                            Das Datum liegt zu weit in der Vergangenheit.
+                        </md-error>
+                        <md-error *ngIf="form?.controls[field.name]?.errors.mdDatepickerMax">
+                            Das Datum muss in der Vergangenheit liegen.
+                        </md-error>
+                        <md-error *ngIf="field.type !== 'date' && form?.controls[field.name]?.errors.required">
+                            Dieses Feld ist ein Pflichtfeld!
+                        </md-error>
+                    </ng-container>
+                </div>
+
+                <div class="formrow">
+                    <md-checkbox name="accept" required [(ngModel)]="data.accept">
+                        Ich habe die <a href="assets/agb.pdf" target="_blank">AGB</a> gelesen und akzeptiere sie!
+                    </md-checkbox>
+                </div>
+
+                <div class="row">
+                    <div class="col-lg-offset-5 col-lg-7">
+                        <button md-button color="primary" type="submit" [disabled]="!data.accept || !form.form.valid">
+                            Anmelden
+                        </button>
+                    </div>
+                </div>
+
+                <p>* Pflichtfelder</p>
+            </form>
+        </md-card>
+    </div>
+</div>

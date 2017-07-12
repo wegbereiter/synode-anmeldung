@@ -2,7 +2,7 @@
     <div class="row">
         <div class="col-xs-12">
             <p class="text-center">
-                <img src="images/symbol.png" style="width: 350px; margin: 15px;" />
+                <img src="assets/symbol.png" style="width: 350px; margin: 15px;" />
             </p>
             <h1>Glaubensfragen <small>Die vierte Synode des Ordens der Wegbereiter</small></h1>
 
@@ -71,17 +71,19 @@
 
                 <dt>Plätze</dt>
                 <dd>
-                    <span *ngIf="(bedCount$ | async)?.count < 32">Es sind noch <strong>{{ 32 - (bedCount$ | async)?.count }} von 32</strong> Betten verfügbar.</span>
-                    <span *ngIf="(bedCount$ | async)?.count >= 32">
+                    <ng-container *ngIf="bedCount$ | async as beds">
+                        <span *ngIf="beds.count < 32">Es sind noch <strong>{{ 32 - beds.count }} von 32</strong> Betten verfügbar.</span>
+                        <span *ngIf="beds.count >= 32">
                         <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste und rutschen nach
                         falls es Absagen gibt.
                     </span>
+                    </ng-container>
                     Es gibt mehr Einladungen als Betten.<br/>
                     <strong>Wer sich zuerst anmeldet und bezahlt, bekommt eine kleine Aufmerksamkeit!</strong>
                 </dd>
             </dl>
             <div class="col-sm-6 text-right">
-                <a href="http://kampagnenspiel.live-adventure.de/offizielle" target="_blank"><img src="images/mythodea_siegel.png" /></a>
+                <a href="http://kampagnenspiel.live-adventure.de/offizielle" target="_blank"><img src="assets/mythodea_siegel.png" /></a>
             </div>
         </div>
     </div>
@@ -89,7 +91,7 @@
     <h2 id="registration">Anmeldung</h2>
 
     <div class="loader" *ngIf="isLoading">
-        <md-progress-circle mode="indeterminate"></md-progress-circle>
+        <md-spinner></md-spinner>
     </div>
     <div class="panel panel-success" *ngIf="!!isSuccessful">
         <div class="panel-heading">
@@ -115,5 +117,5 @@
             <p>Bitte versuche es erneut oder benachrichtige die Orga wenn der Fehler weiterhin auftritt!</p>
         </div>
     </div>
-    <register-form [data]="data" (post)="sendForm($event)" *ngIf="!isLoading && !isSuccessful"></register-form>
+    <wb-register-form [data]="data" (post)="sendForm($event)" *ngIf="!isLoading && !isSuccessful"></wb-register-form>
 </div>
