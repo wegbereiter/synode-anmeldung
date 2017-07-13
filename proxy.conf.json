@@ -1,9 +1,5 @@
 {
-    "/count": {
-        "target": "http://localhost:3000",
-        "secure": false
-    },
-    "/register": {
+    "/api": {
         "target": "http://localhost:3000",
         "secure": false
     }

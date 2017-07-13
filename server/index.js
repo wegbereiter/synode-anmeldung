@@ -27,14 +27,14 @@ if (commander.key && commander.user && commander.sheet) {
 
     const api = new GoogleApi({client_email: email, private_key: key}, sheetId);
 
-    app.post('/register', (req, res) => {
+    app.post('/api/register', (req, res) => {
         api.authenticate()
             .then(() => api.register(req.body))
             .then(() => res.status(200).send('Success!'))
             .catch(e => res.status(500).send(e.message));
     });
 
-    app.get('/count', (req, res) => {
+    app.get('/api/count', (req, res) => {
         api.authenticate()
             .then(() => api.countRows())
             .then(count => res.status(200).send(JSON.stringify({count})))

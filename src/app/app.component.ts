@@ -36,7 +36,7 @@ export class AppComponent {
     public ngOnInit() {
         this.bedCount$ = Observable.interval(20000)
             .startWith(0)
-            .switchMap(() => this.http.get('/count'))
+            .switchMap(() => this.http.get('/api/count'))
             .map(res => res.json())
             .do(x => console.log(x));
     }
@@ -51,7 +51,7 @@ export class AppComponent {
         this.error = null;
 
         return this.http
-            .post('/register', body, options)
+            .post('/api/register', body, options)
             .toPromise()
             .then(() => {
                 this.isLoading = false;

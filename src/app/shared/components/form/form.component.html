@@ -68,7 +68,7 @@
                             Das ist keine gültige E-Mail-Adresse!
                         </md-error>
                         <md-error *ngIf="field.type === 'date' && form?.controls[field.name]?.errors.required">
-                            Das ist kein gültiges Format.<br />Bitte im Format YYYY-MM-DD angeben (z.B. 2017-07-12).
+                            Das ist kein gültiges Format.<br />Bitte im Format DD.MM.YYYY angeben (z.B. 12.07.2017).
                         </md-error>
                         <md-error *ngIf="form?.controls[field.name]?.errors.mdDatepickerMin">
                             Das Datum liegt zu weit in der Vergangenheit.

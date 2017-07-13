@@ -19,7 +19,7 @@ export class FormComponent {
         {name: 'country', required: true, label: 'Land'},
         {name: 'mobile', label: 'Handy-Nummer'},
         {name: 'allergies', label: 'Allergien / Unverträglichkeiten', type: 'textarea'},
-        {name: 'birthday', required: true, label: 'Geburtstag (YYYY-MM-DD)', type: 'date', min: moment('1900-01-01'), max: moment()},
+        {name: 'birthday', required: true, label: 'Geburtstag (DD.MM.YYYY)', type: 'date', min: moment('1900-01-01'), max: moment()},
         {name: 'npc', label: 'NPC', type: 'checkbox', help: 'Bitte nur nach vorheriger Rücksprache!'},
         {name: 'itName', required: true, label: 'IT-Name'},
         {
