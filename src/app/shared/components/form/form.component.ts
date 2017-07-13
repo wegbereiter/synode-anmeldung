@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
+import { FormData } from '../../data';
 
 @Component({
     selector: 'wb-register-form',
@@ -7,10 +8,10 @@ import * as moment from 'moment';
     styleUrls: ['./form.component.scss'],
 })
 export class FormComponent {
-    @Input() public data = {};
-    @Output() public post = new EventEmitter();
+    @Input() public data: FormData = {};
+    @Output() public post = new EventEmitter<FormData>();
 
-    private fields = [
+    public fields = [
         {name: 'name', required: true, label: 'Vor- und Nachname'},
         {name: 'email', required: true, label: 'E-Mail', type: 'email'},
         {name: 'street', required: true, label: 'Straße'},
@@ -36,7 +37,7 @@ export class FormComponent {
         },
     ];
 
-    sendForm() {
+    public sendForm() {
         const normalized = {};
         Object.keys(this.data).forEach((key) => {
             const field = <any> this.fields.filter(field => field.name === key).pop();

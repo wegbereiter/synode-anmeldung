@@ -1,6 +1,7 @@
 import { Component } from '@angular/core';
 import { Observable } from 'rxjs';
 import { Http, Headers, RequestOptions } from '@angular/http';
+import { FormData } from './shared/data';
 
 @Component({
     selector: 'wb-root',
@@ -8,7 +9,7 @@ import { Http, Headers, RequestOptions } from '@angular/http';
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent {
-    private data = {
+    private data: FormData = {
         name: null,
         email: null,
         street: null,

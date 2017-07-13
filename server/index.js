@@ -2,18 +2,21 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
 const historyApiFallback = require('express-history-api-fallback');
-const webpackMiddleware = require('webpack-dev-middleware');
 const webpack = require('webpack');
+const pathUtil = require('path');
 const commander = require('commander');
 const GoogleApi = require('./googleApi');
 
 commander
-    .version('0.0.1')
+    .version('0.0.2')
     .option('-p, --port [port]', 'Port', 80)
     .option('-s, --sheet [sheetId]', 'The ID for the spread sheet')
     .option('-u, --user [userEmail]', 'The E-Mail for the google API user')
     .option('-k, --key [privateKey]', 'The private key for the google API user')
+    .option('-d, --dir [path]', 'The path to the application directory')
     .parse(process.argv);
+
+console.log(commander.key);
 
 const app = express();
 const env = process.env.NODE_ENV || 'development';
@@ -41,21 +44,18 @@ if (commander.key && commander.user && commander.sheet) {
             .catch(e => res.status(500).send(e.message));
     });
 } else {
-    console.warn('Warning: /register endpoint is disabled');
+    console.warn('Warning: /api endpoints are disabled');
 }
 
-if (env === 'development') {
-    const config = require('../config/webpack.dev')(env);
-    app.use(webpackMiddleware(webpack(config), config.devServer));
-}
-
-if (env === 'production') {
-    const root = __dirname + '/../dist';
+if (commander.dir) {
+    const root = pathUtil.resolve(process.cwd(), commander.dir);
     app.use(compression());
     app.use(express.static(root, {
         maxage: '365d',
     }));
-    app.use(historyApiFallback('index.html', {root}))
+    app.use(historyApiFallback('index.html', { root }))
+} else {
+    console.warn('Warning: no files will be served via this server');
 }
 
 app.listen(commander.port, () => {
