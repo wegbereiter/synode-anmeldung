@@ -1,7 +1,14 @@
 import { Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable } from 'rxjs/Observable';
 import { Http, Headers, RequestOptions } from '@angular/http';
 import { FormData } from './shared/data';
+
+import 'rxjs/add/operator/toPromise';
+import 'rxjs/add/operator/switchMap';
+import 'rxjs/add/operator/map';
+import 'rxjs/add/operator/startWith';
+import 'rxjs/add/operator/do';
+import 'rxjs/add/observable/interval';
 
 @Component({
     selector: 'wb-root',

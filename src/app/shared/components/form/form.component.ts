@@ -28,7 +28,7 @@ export class FormComponent {
             required: true,
             label: 'Siegel',
             type: 'select',
-            options: ['Keines', 'Osten', 'Norden', 'Westen', 'Süden', 'Mitte'],
+            options: ['Keines', 'Osten', 'Norden', 'Westen', 'Süden', 'Reich der Rosen'],
         },
         {
             name: 'room',
