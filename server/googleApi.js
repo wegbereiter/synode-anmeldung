@@ -2,7 +2,7 @@
 
 const GoogleSpreadsheet = require('google-spreadsheet');
 const dateRegExp = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
-const moment = require('moment');
+const moment = require('moment-timezone');
 
 const columns = {
     name: 'Name',
@@ -81,7 +81,7 @@ class GoogleApi {
             else if (!output[targetKey].match(dateRegExp)) output[targetKey] = '\'' + output[columns[key]];
         });
 
-        output['Datum'] = moment().format('DD.MM.YYYY, HH:mm');
+        output['Datum'] = moment().tz('Europe/Berlin').format('DD.MM.YYYY, HH:mm');
 
         return output;
     }

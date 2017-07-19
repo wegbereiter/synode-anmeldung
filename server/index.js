@@ -16,8 +16,6 @@ commander
     .option('-d, --dir [path]', 'The path to the application directory')
     .parse(process.argv);
 
-console.log(commander.key);
-
 const app = express();
 const env = process.env.NODE_ENV || 'development';
 
