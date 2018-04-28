@@ -35,6 +35,7 @@ export class AppComponent {
         sigil: null,
         room: null,
         accept: false,
+        minAge: true,
     };
 
     public isLoading = false;
@@ -47,7 +48,9 @@ export class AppComponent {
 
     public error = null;
 
-    constructor(private http: HttpClient, private dialog: MatDialog) { }
+    constructor(private http: HttpClient, private dialog: MatDialog) {
+        this.data.minAge = !this.minAge;
+    }
 
     public ngOnInit() {
         this.bedCount$ = Observable.interval(20000).pipe(

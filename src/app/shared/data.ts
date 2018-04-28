@@ -17,4 +17,5 @@ export interface FormData {
     sigil?: string;
     room?: string;
     accept?: boolean;
+    minAge?: boolean;
 }

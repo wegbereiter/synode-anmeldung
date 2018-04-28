@@ -11,6 +11,7 @@ import { FormData } from '../../data';
 })
 export class FormComponent {
     @Input() public data: FormData = {};
+    @Input() public minAge = null;
     @Input() public maxBirthday = moment();
     @Output() public post = new EventEmitter<FormData>();
     @Output() public privacy = new EventEmitter<null>();
@@ -63,7 +64,9 @@ export class FormComponent {
         this.post.emit(normalized);
     }
 
-    public openPrivacy() {
+    public openPrivacy(event) {
+        event.stopPropagation();
+        event.preventDefault();
         this.privacy.emit();
     }
 }

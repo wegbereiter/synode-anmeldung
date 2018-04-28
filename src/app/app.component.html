@@ -130,6 +130,7 @@
     </div>
     <wb-register-form 
         [data]="data" 
+        [minAge]="minAge"
         [maxBirthday]="maxBirthday"
         (post)="sendForm($event)"
         (privacy)="openImprint()"

@@ -89,16 +89,24 @@
                 <div class="formrow">
                     <mat-checkbox name="accept" required [(ngModel)]="data.accept">
                         Ich habe die <a href="assets/agb.pdf" target="_blank">AGB</a>
-                        und die <a (click)="openPrivacy()">Datenschutzerklärung</a> gelesen
+                        und die <a (click)="openPrivacy($event)">Datenschutzerklärung</a> gelesen
                         und akzeptiere sie!<br>
                         Ich willige ein, dass meine Daten für den Zweck dieser Veranstaltung<br>
                         erhoben, gespeichert und verarbeitet werden dürfen.<br>
                     </mat-checkbox>
                 </div>
 
+                <div class="formrow" *ngIf="minAge">
+                    <mat-checkbox name="minAge" required [(ngModel)]="data.minAge">
+                        Ich bin mir über die Natur dieser Veranstaltung bewusst.<br>
+                        Diese Con ist für Teilnehmer ab {{ minAge }} Jahren gedacht<br>
+                        und kann Horror-Elemente enthalten.
+                    </mat-checkbox>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-offset-5 col-lg-7">
-                        <button mat-button color="primary" type="submit" [disabled]="!data.accept || !data.privacy || !form.form.valid">
+                        <button mat-button color="primary" type="submit" [disabled]="!data.accept || !data.minAge || !form.form.valid">
                             Anmelden
                         </button>
                     </div>

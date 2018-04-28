@@ -23,6 +23,7 @@ const columns = {
     sigil: 'Siegel',
     room: 'Zimmerwunsch',
     accept: 'AGB',
+    minAge: 'Mindestalter',
 };
 
 class GoogleApi {
