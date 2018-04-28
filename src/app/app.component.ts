@@ -42,9 +42,9 @@ export class AppComponent {
     public isSuccessful = false;
     public bedCount$: Observable<any> = null;
 
-    public minAge = null;
-    public startDate = moment('2018-01-26');
-    public endDate = moment('2018-01-28');
+    public minAge = 18;
+    public startDate = moment('2018-10-12');
+    public endDate = moment('2018-10-14');
 
     public error = null;
 
