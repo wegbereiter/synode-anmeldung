@@ -1,36 +1,41 @@
-import { CommonModule } from '@angular/common';
-import { NgModule } from '@angular/core';
-import { FormsModule } from '@angular/forms';
 import {
-    MdProgressSpinnerModule, MdDatepickerModule, MdDialogModule, MdInputModule,
-    MdButtonModule, MdSelectModule, MdCheckboxModule, MdCardModule,
+    MatButtonModule,
+    MatCardModule,
+    MatCheckboxModule,
+    MatDatepickerModule,
+    MatDialogModule,
+    MatInputModule,
+    MatProgressSpinnerModule,
+    MatSelectModule,
 } from '@angular/material';
+
+import { CommonModule } from '@angular/common';
 import { FormComponent } from './components/form/form.component';
+import { FormsModule } from '@angular/forms';
+import { NgModule } from '@angular/core';
 
 @NgModule({
     declarations: [
         FormComponent,
-        // DateInputComponent,
     ],
     imports: [
         CommonModule,
         FormsModule,
-        MdProgressSpinnerModule,
-        MdDatepickerModule,
-        MdDialogModule,
-        MdInputModule,
-        MdButtonModule,
-        MdSelectModule,
-        MdCheckboxModule,
-        MdCardModule,
+        MatProgressSpinnerModule,
+        MatDatepickerModule,
+        MatDialogModule,
+        MatInputModule,
+        MatButtonModule,
+        MatSelectModule,
+        MatCheckboxModule,
+        MatCardModule,
     ],
     exports: [
         CommonModule,
         FormsModule,
-        MdProgressSpinnerModule,
+        MatProgressSpinnerModule,
 
         FormComponent,
-        // DateInputComponent,
     ],
 })
 export class SharedModule {

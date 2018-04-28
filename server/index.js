@@ -31,8 +31,8 @@ if (commander.key && commander.user && commander.sheet) {
     app.post('/api/register', (req, res) => {
         api.authenticate()
             .then(() => api.register(req.body))
-            .then(() => res.status(200).send('Success!'))
-            .catch(e => res.status(500).send(e.message));
+            .then(() => res.status(200).json({ message: 'success' }))
+            .catch(e => res.status(500).json({ message: e.message }));
     });
 
     app.get('/api/count', (req, res) => {

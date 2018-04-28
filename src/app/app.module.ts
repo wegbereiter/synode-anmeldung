@@ -1,12 +1,24 @@
-import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import { MAT_MOMENT_DATE_FORMATS, MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { AppComponent } from './app.component';
-import { SharedModule } from './shared/shared.module';
-import { DateAdapter, MD_DATE_FORMATS, MdNativeDateModule } from '@angular/material';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MomentDateAdapter, MOMENT_DATE_FORMATS } from './momentDateAdapter.service';
-import { HttpModule } from '@angular/http';
+import { BrowserModule } from '@angular/platform-browser';
+import { HttpClientModule } from '@angular/common/http';
+import { NgModule } from '@angular/core';
+import { SharedModule } from './shared/shared.module';
+
+const MY_FORMATS = {
+    parse: {
+        dateInput: 'DD.MM.YYYY',
+    },
+    display: {
+        dateInput: 'DD.MM.YYYY',
+        monthYearLabel: 'MMM YYYY',
+        dateA11yLabel: 'LL',
+        monthYearA11yLabel: 'MMMM YYYY',
+    },
+};
 
 @NgModule({
     declarations: [
@@ -16,12 +28,12 @@ import { HttpModule } from '@angular/http';
         BrowserAnimationsModule,
         BrowserModule,
         SharedModule,
-        MdNativeDateModule,
-        HttpModule,
+        HttpClientModule,
+        MatMomentDateModule,
     ],
     providers: [
-        {provide: DateAdapter, useClass: MomentDateAdapter},
-        {provide: MD_DATE_FORMATS, useValue: MOMENT_DATE_FORMATS},
+        { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
+        { provide: MAT_DATE_FORMATS, useValue: MY_FORMATS },
     ],
     bootstrap: [AppComponent],
 })

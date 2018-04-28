@@ -1,14 +1,10 @@
-import { Component } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { Http, Headers, RequestOptions } from '@angular/http';
-import { FormData } from './shared/data';
+import { Headers, Http, RequestOptions } from '@angular/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
+import { map, startWith, switchMap, tap } from 'rxjs/operators';
 
-import 'rxjs/add/operator/toPromise';
-import 'rxjs/add/operator/switchMap';
-import 'rxjs/add/operator/map';
-import 'rxjs/add/operator/startWith';
-import 'rxjs/add/operator/do';
-import 'rxjs/add/observable/interval';
+import { Component } from '@angular/core';
+import { FormData } from './shared/data';
+import { Observable } from 'rxjs';
 
 @Component({
     selector: 'wb-root',
@@ -39,21 +35,22 @@ export class AppComponent {
 
     public error = null;
 
-    constructor(private http: Http) {}
+    constructor(private http: HttpClient) {}
 
     public ngOnInit() {
-        this.bedCount$ = Observable.interval(20000)
-            .startWith(0)
-            .switchMap(() => this.http.get('/api/count'))
-            .map(res => res.json())
-            .do(x => console.log(x));
+        this.bedCount$ = Observable.interval(20000).pipe(
+            startWith(0),
+            switchMap(() => this.http.get('/api/count')),
+            // map(res => res.json()),
+            tap(x => console.log(x)),
+        )
     }
 
     public sendForm(data) {
         data.birthday = data.birthday.format('DD.MM.YYYY');
         const body = JSON.stringify(data);
-        const headers = new Headers({'Content-Type': 'application/json'});
-        let options = new RequestOptions({ headers });
+        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        let options = { headers };
 
         this.isLoading = true;
         this.error = null;
@@ -68,7 +65,7 @@ export class AppComponent {
             .catch((res) => {
                 this.isLoading = false;
                 this.error = res._body;
-                console.log(res._body)
+                console.log(res)
             });
     }
 }
