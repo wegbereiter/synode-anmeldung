@@ -17,6 +17,7 @@ commander
     .option('-u, --user [userEmail]', 'The E-Mail for the google API user', process.env.GOOGLE_USER)
     .option('-k, --key [privateKey]', 'The private key for the google API user', process.env.GOOGLE_KEY)
     .option('-d, --dir [path]', 'The path to the application directory', process.env.DIRECTORY)
+    .option('-b, --beds [number]', 'The maximum number of beds', process.env.BEDS || 0)
     .parse(process.argv);
 
 const app = express();
@@ -41,8 +42,12 @@ if (commander.key && commander.user && commander.sheet) {
     app.get('/api/count', (req, res) => {
         api.authenticate()
             .then(() => api.countRows())
-            .then(count => res.status(200).send(JSON.stringify({count})))
-            .catch(e => res.status(500).send(e.message));
+            .then(count => res.status(200).json({
+                current: count,
+                max: Number(commander.beds),
+                remaining: commander.beds - count,
+            }))
+            .catch(e => res.status(500).json({ message: e.message }));
     });
 } else {
     console.warn('Warning: /api endpoints are disabled');

@@ -78,8 +78,8 @@
                 <dt>Plätze</dt>
                 <dd>
                     <ng-container *ngIf="bedCount$ | async as beds">
-                        <span *ngIf="beds.count < 41">Es sind noch <strong>{{ 41 - beds.count }} von 41</strong> Betten verfügbar.</span>
-                        <span *ngIf="beds.count >= 41">
+                        <span *ngIf="beds.remaining > 0">Es sind noch <strong>{{ beds.remaining }} von {{ beds.max }}</strong> Betten verfügbar.</span>
+                        <span *ngIf="beds.remaining <= 0">
                             <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste und rutschen nach
                             falls es Absagen gibt.
                         </span>

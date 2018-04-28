@@ -29,6 +29,7 @@ export class AppComponent {
         sigil: null,
         room: null,
         accept: false,
+        privacy: false,
     };
 
     public isLoading = false;
@@ -43,7 +44,6 @@ export class AppComponent {
         this.bedCount$ = Observable.interval(20000).pipe(
             startWith(0),
             switchMap(() => this.http.get('/api/count')),
-            // map(res => res.json()),
             tap(x => console.log(x)),
         )
     }

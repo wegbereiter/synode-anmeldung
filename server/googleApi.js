@@ -19,6 +19,7 @@ const columns = {
     sigil: 'Siegel',
     room: 'Zimmerwunsch',
     accept: 'AGB',
+    privacy: 'Datenschutz',
 };
 
 class GoogleApi {
