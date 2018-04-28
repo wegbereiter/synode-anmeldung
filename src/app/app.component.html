@@ -123,5 +123,14 @@
             <p>Bitte versuche es erneut oder benachrichtige die Orga wenn der Fehler weiterhin auftritt!</p>
         </div>
     </div>
-    <wb-register-form [data]="data" (post)="sendForm($event)" *ngIf="!isLoading && !isSuccessful"></wb-register-form>
+    <wb-register-form 
+        [data]="data" 
+        (post)="sendForm($event)" 
+        (privacy)="openImprint()"
+        *ngIf="!isLoading && !isSuccessful">
+    </wb-register-form>
+
+    <p>
+        <a (click)="openImprint()" class="impressum">Impressum & Datenschutz</a>
+    </p>
 </div>

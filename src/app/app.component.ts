@@ -4,6 +4,8 @@ import { map, startWith, switchMap, tap } from 'rxjs/operators';
 
 import { Component } from '@angular/core';
 import { FormData } from './shared/data';
+import { ImprintDialog } from './imprint/imprintDialog.component';
+import { MatDialog } from '@angular/material';
 import { Observable } from 'rxjs';
 
 @Component({
@@ -35,7 +37,7 @@ export class AppComponent {
 
     public error = null;
 
-    constructor(private http: HttpClient) {}
+    constructor(private http: HttpClient, private dialog: MatDialog) { }
 
     public ngOnInit() {
         this.bedCount$ = Observable.interval(20000).pipe(
@@ -46,10 +48,14 @@ export class AppComponent {
         )
     }
 
+    public openImprint() {
+        this.dialog.open(ImprintDialog, { width: '90%' });
+    }
+
     public sendForm(data) {
         data.birthday = data.birthday.format('DD.MM.YYYY');
         const body = JSON.stringify(data);
-        const headers = new HttpHeaders({'Content-Type': 'application/json'});
+        const headers = new HttpHeaders({ 'Content-Type': 'application/json' });
         let options = { headers };
 
         this.isLoading = true;

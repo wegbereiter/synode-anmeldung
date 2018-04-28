@@ -1,5 +1,7 @@
-import { Component, Input, Output, EventEmitter } from '@angular/core';
 import * as moment from 'moment';
+
+import { Component, EventEmitter, Input, Output } from '@angular/core';
+
 import { FormData } from '../../data';
 
 @Component({
@@ -10,6 +12,7 @@ import { FormData } from '../../data';
 export class FormComponent {
     @Input() public data: FormData = {};
     @Output() public post = new EventEmitter<FormData>();
+    @Output() public privacy = new EventEmitter<null>();
 
     public fields = [
         {name: 'name', required: true, label: 'Vor- und Nachname'},
@@ -47,5 +50,9 @@ export class FormComponent {
             else normalized[key] = this.data[key];
         });
         this.post.emit(normalized);
+    }
+
+    public openPrivacy() {
+        this.privacy.emit();
     }
 }

@@ -13,4 +13,5 @@ export interface FormData {
     sigil?: string;
     room?: string;
     accept?: boolean;
+    privacy?: boolean;
 }

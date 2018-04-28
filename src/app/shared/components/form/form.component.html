@@ -88,9 +88,17 @@
                     </mat-checkbox>
                 </div>
 
+                <div class="formrow">
+                    <mat-checkbox name="privacy" required [(ngModel)]="data.privacy">
+                        Ich habe die <a (click)="openPrivacy()">Datenschutzerklärung</a> gelesen und willige ein,
+                        <br/>dass meine Daten für den Zweck dieser veranstaltung erhoben,
+                        <br/>gespeichert und verarbeitet werden dürfen.
+                    </mat-checkbox>
+                </div>
+
                 <div class="row">
                     <div class="col-lg-offset-5 col-lg-7">
-                        <button mat-button color="primary" type="submit" [disabled]="!data.accept || !form.form.valid">
+                        <button mat-button color="primary" type="submit" [disabled]="!data.accept || !data.privacy || !form.form.valid">
                             Anmelden
                         </button>
                     </div>

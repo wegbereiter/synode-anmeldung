@@ -1,10 +1,11 @@
-import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE } from '@angular/material';
+import { DateAdapter, MAT_DATE_FORMATS, MAT_DATE_LOCALE, MatButtonModule, MatDialogModule } from '@angular/material';
 import { MAT_MOMENT_DATE_FORMATS, MatMomentDateModule, MomentDateAdapter } from '@angular/material-moment-adapter';
 
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { BrowserModule } from '@angular/platform-browser';
 import { HttpClientModule } from '@angular/common/http';
+import { ImprintDialog } from './imprint/imprintDialog.component';
 import { NgModule } from '@angular/core';
 import { SharedModule } from './shared/shared.module';
 
@@ -23,6 +24,10 @@ const MY_FORMATS = {
 @NgModule({
     declarations: [
         AppComponent,
+        ImprintDialog,
+    ],
+    entryComponents: [
+        ImprintDialog,
     ],
     imports: [
         BrowserAnimationsModule,
@@ -30,6 +35,8 @@ const MY_FORMATS = {
         SharedModule,
         HttpClientModule,
         MatMomentDateModule,
+        MatDialogModule,
+        MatButtonModule,
     ],
     providers: [
         { provide: DateAdapter, useClass: MomentDateAdapter, deps: [MAT_DATE_LOCALE] },
