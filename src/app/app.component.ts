@@ -1,3 +1,5 @@
+import * as moment from 'moment';
+
 import { Headers, Http, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map, startWith, switchMap, tap } from 'rxjs/operators';
@@ -22,19 +24,26 @@ export class AppComponent {
         city: null,
         country: 'Deutschland',
         mobile: null,
+        licensePlate: null,
+        diet: null,
         allergies: null,
+        fears: null,
         birthday: null,
         npc: false,
         itName: null,
+        itPowers: null,
         sigil: null,
         room: null,
         accept: false,
-        privacy: false,
     };
 
     public isLoading = false;
     public isSuccessful = false;
     public bedCount$: Observable<any> = null;
+
+    public minAge = null;
+    public startDate = moment('2018-01-26');
+    public endDate = moment('2018-01-28');
 
     public error = null;
 
@@ -46,6 +55,11 @@ export class AppComponent {
             switchMap(() => this.http.get('/api/count')),
             tap(x => console.log(x)),
         )
+    }
+
+    get maxBirthday() {
+        if (!this.minAge) return null;
+        return this.startDate.clone().subtract(18, 'years');
     }
 
     public openImprint() {

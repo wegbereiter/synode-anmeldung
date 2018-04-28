@@ -12,17 +12,20 @@
                                 [required]="field.required"
                                 [(ngModel)]="data[field.name]">
                             </textarea>
+                            <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
                     </mat-form-field>
-                    <mat-select
-                            *ngSwitchCase="'select'"
-                            [placeholder]="field.label"
-                            [name]="field.name"
-                            [required]="field.required"
-                            [(ngModel)]="data[field.name]">
-                        <mat-option *ngFor="let option of field.options" [value]="option">
-                            {{ option }}
-                        </mat-option>
-                    </mat-select>
+                    <mat-form-field *ngSwitchCase="'select'">
+                        <mat-select
+                                [placeholder]="field.label"
+                                [name]="field.name"
+                                [required]="field.required"
+                                [(ngModel)]="data[field.name]">
+                            <mat-option *ngFor="let option of field.options" [value]="option">
+                                {{ option }}
+                            </mat-option>
+                        </mat-select>
+                        <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                    </mat-form-field>
                     <mat-checkbox
                             *ngSwitchCase="'checkbox'"
                             [name]="field.name"
@@ -30,20 +33,19 @@
                             [(ngModel)]="data[field.name]">
                         {{ field.label }}
                     </mat-checkbox>
-                    <ng-container *ngSwitchCase="'date'">
-                        <mat-form-field>
-                            <input matInput
-                                   [name]="field.name"
-                                   [placeholder]="field.label"
-                                   [required]="field.required"
-                                   [min]="field.min"
-                                   [max]="field.max"
-                                   [matDatepicker]="picker"
-                                   [(ngModel)]="data[field.name]">
-                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                            <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                    </ng-container>
+                    <mat-form-field *ngSwitchCase="'date'">
+                        <input matInput
+                                [name]="field.name"
+                                [placeholder]="field.label"
+                                [required]="field.required"
+                                [min]="field.min && field.min()"
+                                [max]="field.max && field.max()"
+                                [matDatepicker]="picker"
+                                [(ngModel)]="data[field.name]">
+                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                        <mat-datepicker #picker></mat-datepicker>
+                        <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                    </mat-form-field>
                     <mat-form-field *ngSwitchCase="'email'">
                         <input
                                 matInput
@@ -53,6 +55,7 @@
                                 [type]="field.type || 'text'"
                                 pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
                                 [(ngModel)]="data[field.name]" />
+                        <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
                     </mat-form-field>
                     <mat-form-field *ngSwitchDefault>
                         <input
@@ -62,6 +65,7 @@
                                 [required]="field.required"
                                 [type]="field.type || 'text'"
                                 [(ngModel)]="data[field.name]" />
+                        <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
                     </mat-form-field>
                     <ng-container *ngIf="form.controls[field.name]?.touched && !form.controls[field.name]?.valid">
                         <mat-error *ngIf="field.type === 'email' && form?.controls[field.name]?.errors.pattern">
@@ -74,7 +78,7 @@
                             Das Datum liegt zu weit in der Vergangenheit.
                         </mat-error>
                         <mat-error *ngIf="form?.controls[field.name]?.errors.matDatepickerMax">
-                            Das Datum muss in der Vergangenheit liegen.
+                            Das Datum liegt nicht weit genug in der Vergangenheit.
                         </mat-error>
                         <mat-error *ngIf="field.type !== 'date' && form?.controls[field.name]?.errors.required">
                             Dieses Feld ist ein Pflichtfeld!
@@ -84,15 +88,11 @@
 
                 <div class="formrow">
                     <mat-checkbox name="accept" required [(ngModel)]="data.accept">
-                        Ich habe die <a href="assets/agb.pdf" target="_blank">AGB</a> gelesen und akzeptiere sie!
-                    </mat-checkbox>
-                </div>
-
-                <div class="formrow">
-                    <mat-checkbox name="privacy" required [(ngModel)]="data.privacy">
-                        Ich habe die <a (click)="openPrivacy()">Datenschutzerklärung</a> gelesen und willige ein,
-                        <br/>dass meine Daten für den Zweck dieser veranstaltung erhoben,
-                        <br/>gespeichert und verarbeitet werden dürfen.
+                        Ich habe die <a href="assets/agb.pdf" target="_blank">AGB</a>
+                        und die <a (click)="openPrivacy()">Datenschutzerklärung</a> gelesen
+                        und akzeptiere sie!<br>
+                        Ich willige ein, dass meine Daten für den Zweck dieser Veranstaltung<br>
+                        erhoben, gespeichert und verarbeitet werden dürfen.<br>
                     </mat-checkbox>
                 </div>
 

@@ -36,9 +36,14 @@
             <dl class="dl-horizontal col-sm-6">
                 <dt>Con-Art</dt>
                 <dd><p>Ambiente</p></dd>
+                
+                <ng-container *ngIf="minAge">
+                    <dt>Mindestalter</dt>
+                    <dd><p>{{ minAge }} Jahre</p></dd>
+                </ng-container>
 
                 <dt>Datum</dt>
-                <dd><p>26.01.2018 &ndash; 28.01.2018</p></dd>
+                <dd><p>{{ startDate.format('DD.MM.YYYY') }} &ndash; {{ endDate.format('DD.MM.YYYY') }}</p></dd>
 
                 <dt>Location</dt>
                 <dd>
@@ -59,7 +64,7 @@
                         </small>
                     </p>
                 </dd>
-
+                
                 <dt>Regelwerk</dt>
                 <dd>
                     <p>
@@ -125,7 +130,8 @@
     </div>
     <wb-register-form 
         [data]="data" 
-        (post)="sendForm($event)" 
+        [maxBirthday]="maxBirthday"
+        (post)="sendForm($event)"
         (privacy)="openImprint()"
         *ngIf="!isLoading && !isSuccessful">
     </wb-register-form>

@@ -11,6 +11,7 @@ import { FormData } from '../../data';
 })
 export class FormComponent {
     @Input() public data: FormData = {};
+    @Input() public maxBirthday = moment();
     @Output() public post = new EventEmitter<FormData>();
     @Output() public privacy = new EventEmitter<null>();
 
@@ -22,10 +23,20 @@ export class FormComponent {
         {name: 'city', required: true, label: 'Ort'},
         {name: 'country', required: true, label: 'Land'},
         {name: 'mobile', label: 'Handy-Nummer'},
+        {name: 'licensePlate', label: 'KFZ-Kennzeichen', hint: 'Nur erforderlich, wenn du mit deinem eigenen PKW anreist.'},
+        {
+            name: 'diet',
+            required: true,
+            label: 'Ich bin...',
+            type: 'select',
+            options: ['Allesesser', 'Vegetarier', 'Veganer'],
+        },
         {name: 'allergies', label: 'Allergien / Unverträglichkeiten', type: 'textarea'},
-        {name: 'birthday', required: true, label: 'Geburtstag (DD.MM.YYYY)', type: 'date', min: moment('1900-01-01'), max: moment()},
+        {name: 'fears', label: 'Ängste / Phobien', type: 'textarea', hint: 'Hier können zum Beispiel Dinge wie "Höhenangst" eingetragen werden, welche das Spiel auf der Burgruine für dich einschränken könnten.'},
+        {name: 'birthday', required: true, label: 'Geburtstag (DD.MM.YYYY)', type: 'date', min: () => moment('1900-01-01'), max: () => this.maxBirthday},
         {name: 'npc', label: 'NPC', type: 'checkbox', help: 'Bitte nur nach vorheriger Rücksprache!'},
         {name: 'itName', required: true, label: 'IT-Name'},
+        {name: 'itPowers', required: false, label: 'Charakter-Besonderheiten', hint: `Bist du ein Freundschaftsträger der Elemente oder sogar ein Mitray'Kor?`},
         {
             name: 'sigil',
             required: true,

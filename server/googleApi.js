@@ -12,14 +12,17 @@ const columns = {
     city: 'Ort',
     country: 'Land',
     mobile: 'Handy-Nummer',
+    licensePlate: 'KFZ-Kennzeichen',
+    diet: 'Ernährung',
     allergies: 'Allergien',
+    fears: 'Phobien',
     birthday: 'Geburtstag',
     npc: 'NPC',
     itName: 'IT-Name',
+    itPowers: 'Char-Besonderheiten',
     sigil: 'Siegel',
     room: 'Zimmerwunsch',
     accept: 'AGB',
-    privacy: 'Datenschutz',
 };
 
 class GoogleApi {
