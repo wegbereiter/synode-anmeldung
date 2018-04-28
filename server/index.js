@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const express = require('express');
 const bodyParser = require('body-parser');
 const compression = require('compression');
@@ -7,13 +9,14 @@ const pathUtil = require('path');
 const commander = require('commander');
 const GoogleApi = require('./googleApi');
 
+
 commander
-    .version('0.0.2')
-    .option('-p, --port [port]', 'Port', 80)
-    .option('-s, --sheet [sheetId]', 'The ID for the spread sheet')
-    .option('-u, --user [userEmail]', 'The E-Mail for the google API user')
-    .option('-k, --key [privateKey]', 'The private key for the google API user')
-    .option('-d, --dir [path]', 'The path to the application directory')
+    .version('1.0.0')
+    .option('-p, --port [port]', 'Port', process.env.PORT || 80)
+    .option('-s, --sheet [sheetId]', 'The ID for the spread sheet', process.env.SHEET)
+    .option('-u, --user [userEmail]', 'The E-Mail for the google API user', process.env.GOOGLE_USER)
+    .option('-k, --key [privateKey]', 'The private key for the google API user', process.env.GOOGLE_KEY)
+    .option('-d, --dir [path]', 'The path to the application directory', process.env.DIRECTORY)
     .parse(process.argv);
 
 const app = express();
