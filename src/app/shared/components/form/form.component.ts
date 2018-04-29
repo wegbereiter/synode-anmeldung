@@ -52,7 +52,7 @@ export class FormComponent {
             name: 'fears',
             label: 'Ängste / Phobien',
             type: 'textarea',
-            hint: 'Beispiel: Höhenangst'
+            hint: 'Beispiel: Höhenangst. Alles, was das Spiel auf der Burgruine für dich einschränken könnten.'
         },
         { name: 'birthday', required: true, label: 'Geburtstag (DD.MM.YYYY)', type: 'date', min: () => moment('1900-01-01'), max: () => this.maxBirthday },
         { name: 'npc', label: 'NPC', type: 'checkbox', hint: 'Bitte nur nach vorheriger Rücksprache!' },
