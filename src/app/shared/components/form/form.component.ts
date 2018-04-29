@@ -66,6 +66,18 @@ export class FormComponent {
             options: ['Keines', 'Osten', 'Norden', 'Westen', 'Süden', 'Reich der Rosen'],
         },
         {
+            name: 'itBedroom',
+            required: true,
+            label: 'Ein durchgängig bespielter Schlafraum ist...',
+            type: 'select',
+            options: [
+                'unerwünscht',
+                'erwünscht',
+                'erwünscht, aber nicht wenn es durch Dritte (NSC) betreten wird',
+            ],
+            hint: 'Deine persönlichen Gegenstände dürfen niemals entwendet, beschädigt oder bewegt werden.',
+        },
+        {
             name: 'room',
             label: 'Ich möchte ein Zimmer mit...',
             hint: 'Wir versuchen allen Wünschen nachzugehen, können aber nichts versprechen.',

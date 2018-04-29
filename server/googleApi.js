@@ -20,6 +20,7 @@ const columns = {
     npc: 'NPC',
     itName: 'IT-Name',
     itPowers: 'Char-Besonderheiten',
+    itBedroom: 'Bespieltes Zimmer',
     sigil: 'Siegel',
     room: 'Zimmerwunsch',
     accept: 'AGB',
