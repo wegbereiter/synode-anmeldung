@@ -1,112 +1,151 @@
 <div class="row">
     <div class="col-sm-6">
         <mat-card>
-            <form class="form-horizontal" #form="ngForm" (ngSubmit)="sendForm()">
-                <div *ngFor="let field of fields" [ngSwitch]="field.type" class="formrow">
+            <form class="form-horizontal"
+                  #form="ngForm"
+                  (ngSubmit)="sendForm()">
+                <div *ngFor="let field of fields"
+                     [ngSwitch]="field.type"
+                     class="formrow">
                     <mat-form-field *ngSwitchCase="'textarea'">
-                        <textarea
-                                matInput
-                                rows="4"
-                                [placeholder]="field.label"
-                                [name]="field.name"
-                                [required]="field.required"
-                                [(ngModel)]="data[field.name]">
+                        <textarea matInput
+                                  rows="4"
+                                  [placeholder]="field.label"
+                                  [name]="field.name"
+                                  [required]="field.required"
+                                  [(ngModel)]="data[field.name]">
                             </textarea>
-                            <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                        <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                        <ng-container *ngIf="form?.controls[field.name] as control">
+                            <mat-error *ngIf="control.touched && control.errors.required">
+                                Dieses Feld ist ein Pflichtfeld!
+                            </mat-error>
+                        </ng-container>
                     </mat-form-field>
+
                     <mat-form-field *ngSwitchCase="'select'">
-                        <mat-select
-                                [placeholder]="field.label"
-                                [name]="field.name"
-                                [required]="field.required"
-                                [(ngModel)]="data[field.name]">
-                            <mat-option *ngFor="let option of field.options" [value]="option">
+                        <mat-select [placeholder]="field.label"
+                                    [name]="field.name"
+                                    [required]="field.required"
+                                    [(ngModel)]="data[field.name]">
+                            <mat-option *ngFor="let option of field.options"
+                                        [value]="option">
                                 {{ option }}
                             </mat-option>
                         </mat-select>
                         <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                        <ng-container *ngIf="form?.controls[field.name] as control">
+                            <mat-error *ngIf="control.touched && control.errors.required">
+                                Dieses Feld ist ein Pflichtfeld!
+                            </mat-error>
+                        </ng-container>
                     </mat-form-field>
-                    <mat-checkbox
-                            *ngSwitchCase="'checkbox'"
-                            [name]="field.name"
-                            [required]="field.required"
-                            [(ngModel)]="data[field.name]">
-                        {{ field.label }}
-                    </mat-checkbox>
+
+                    <ng-container *ngSwitchCase="'checkbox'">
+                        <div>
+                            <mat-checkbox [name]="field.name"
+                                          [required]="field.required"
+                                          [(ngModel)]="data[field.name]">
+                                {{ field.label }}
+                            </mat-checkbox>
+                        </div>
+                        <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                    </ng-container>
+
                     <mat-form-field *ngSwitchCase="'date'">
                         <input matInput
-                                [name]="field.name"
-                                [placeholder]="field.label"
-                                [required]="field.required"
-                                [min]="field.min && field.min()"
-                                [max]="field.max && field.max()"
-                                [matDatepicker]="picker"
-                                [(ngModel)]="data[field.name]">
-                        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                               [name]="field.name"
+                               [placeholder]="field.label"
+                               [required]="field.required"
+                               [min]="field.min && field.min()"
+                               [max]="field.max && field.max()"
+                               [matDatepicker]="picker"
+                               [(ngModel)]="data[field.name]">
+                        <mat-datepicker-toggle matSuffix
+                                               [for]="picker"></mat-datepicker-toggle>
                         <mat-datepicker #picker></mat-datepicker>
                         <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                        <ng-container *ngIf="form?.controls[field.name] as control">
+                            <mat-error *ngIf="control.touched && control.errors.required">
+                                Das ist kein gültiges Format.
+                                <br />Bitte im Format DD.MM.YYYY angeben (z.B. 12.07.2017).
+                            </mat-error>
+                            <mat-error *ngIf="control.touched && control.errors.matDatepickerMin">
+                                Das Datum liegt zu weit in der Vergangenheit.
+                            </mat-error>
+                            <mat-error *ngIf="control.touched && control.errors.matDatepickerMax">
+                                Das Datum liegt nicht weit genug in der Vergangenheit.
+                            </mat-error>
+                        </ng-container>
                     </mat-form-field>
+
                     <mat-form-field *ngSwitchCase="'email'">
-                        <input
-                                matInput
-                                [placeholder]="field.label"
-                                [name]="field.name"
-                                [required]="field.required"
-                                [type]="field.type || 'text'"
-                                pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
-                                [(ngModel)]="data[field.name]" />
+                        <input matInput
+                               [placeholder]="field.label"
+                               [name]="field.name"
+                               [required]="field.required"
+                               [type]="field.type || 'text'"
+                               pattern="[a-zA-Z0-9.!#$%&’*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*"
+                               [(ngModel)]="data[field.name]" />
                         <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                        <ng-container *ngIf="form?.controls[field.name] as control">
+                            <mat-error *ngIf="control.touched && control.errors.pattern">
+                                Das ist keine gültige E-Mail-Adresse!
+                            </mat-error>
+                            <mat-error *ngIf="control.touched && control.errors.required">
+                                Dieses Feld ist ein Pflichtfeld!
+                            </mat-error>
+                        </ng-container>
                     </mat-form-field>
+
                     <mat-form-field *ngSwitchDefault>
-                        <input
-                                matInput
-                                [placeholder]="field.label"
-                                [name]="field.name"
-                                [required]="field.required"
-                                [type]="field.type || 'text'"
-                                [(ngModel)]="data[field.name]" />
+                        <input matInput
+                               [placeholder]="field.label"
+                               [name]="field.name"
+                               [required]="field.required"
+                               [type]="field.type || 'text'"
+                               [(ngModel)]="data[field.name]" />
                         <mat-hint *ngIf="field.hint">{{ field.hint }}</mat-hint>
+                        <ng-container *ngIf="form?.controls[field.name] as control">
+                            <mat-error *ngIf="control.touched && control.errors.required">
+                                Dieses Feld ist ein Pflichtfeld!
+                            </mat-error>
+                        </ng-container>
                     </mat-form-field>
-                    <ng-container *ngIf="form.controls[field.name]?.touched && !form.controls[field.name]?.valid">
-                        <mat-error *ngIf="field.type === 'email' && form?.controls[field.name]?.errors.pattern">
-                            Das ist keine gültige E-Mail-Adresse!
-                        </mat-error>
-                        <mat-error *ngIf="field.type === 'date' && form?.controls[field.name]?.errors.required">
-                            Das ist kein gültiges Format.<br />Bitte im Format DD.MM.YYYY angeben (z.B. 12.07.2017).
-                        </mat-error>
-                        <mat-error *ngIf="form?.controls[field.name]?.errors.matDatepickerMin">
-                            Das Datum liegt zu weit in der Vergangenheit.
-                        </mat-error>
-                        <mat-error *ngIf="form?.controls[field.name]?.errors.matDatepickerMax">
-                            Das Datum liegt nicht weit genug in der Vergangenheit.
-                        </mat-error>
-                        <mat-error *ngIf="field.type !== 'date' && form?.controls[field.name]?.errors.required">
-                            Dieses Feld ist ein Pflichtfeld!
-                        </mat-error>
-                    </ng-container>
                 </div>
 
                 <div class="formrow">
-                    <mat-checkbox name="accept" required [(ngModel)]="data.accept">
-                        Ich habe die <a href="assets/agb.pdf" target="_blank">AGB</a>
-                        und die <a (click)="openPrivacy($event)">Datenschutzerklärung</a> gelesen
-                        und akzeptiere sie!<br>
-                        Ich willige ein, dass meine Daten für den Zweck dieser Veranstaltung<br>
-                        erhoben, gespeichert und verarbeitet werden dürfen.<br>
+                    <mat-checkbox name="accept"
+                                  required
+                                  [(ngModel)]="data.accept">
+                        Ich habe die
+                        <a href="assets/agb.pdf"
+                           target="_blank">AGB</a>
+                        und die
+                        <a (click)="openPrivacy($event)">Datenschutzerklärung</a> gelesen und akzeptiere sie!
+                        <br> Ich willige ein, dass meine Daten für den Zweck dieser Veranstaltung
+                        <br> erhoben, gespeichert und verarbeitet werden dürfen.
+                        <br>
                     </mat-checkbox>
                 </div>
 
-                <div class="formrow" *ngIf="minAge">
-                    <mat-checkbox name="minAge" required [(ngModel)]="data.minAge">
-                        Ich bin mir über die Natur dieser Veranstaltung bewusst.<br>
-                        Diese Con ist für Teilnehmer ab {{ minAge }} Jahren gedacht<br>
-                        und kann Horror-Elemente enthalten.
+                <div class="formrow"
+                     *ngIf="minAge">
+                    <mat-checkbox name="minAge"
+                                  required
+                                  [(ngModel)]="data.minAge">
+                        Ich bin mir über die Natur dieser Veranstaltung bewusst.
+                        <br> Diese Con ist für Teilnehmer ab {{ minAge }} Jahren gedacht
+                        <br> und kann Horror-Elemente enthalten.
                     </mat-checkbox>
                 </div>
 
                 <div class="row">
                     <div class="col-lg-offset-5 col-lg-7">
-                        <button mat-button color="primary" type="submit" [disabled]="!data.accept || !data.minAge || !form.form.valid">
+                        <button mat-button
+                                color="primary"
+                                type="submit"
+                                [disabled]="!data.accept || !data.minAge || !form.form.valid">
                             Anmelden
                         </button>
                     </div>
