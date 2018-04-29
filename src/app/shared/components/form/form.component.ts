@@ -4,6 +4,17 @@ import { Component, EventEmitter, Input, Output } from '@angular/core';
 
 import { FormData } from '../../data';
 
+interface FieldDefinition {
+    name: string;
+    label: string;
+    required?: boolean;
+    type?: string;
+    hint?: string;
+    options?: string[];
+    min?: () => moment.Moment;
+    max?: () => moment.Moment;
+}
+
 @Component({
     selector: 'wb-register-form',
     templateUrl: './form.component.html',
@@ -16,7 +27,7 @@ export class FormComponent {
     @Output() public post = new EventEmitter<FormData>();
     @Output() public privacy = new EventEmitter<null>();
 
-    public fields = [
+    public fields: FieldDefinition[] = [
         {name: 'name', required: true, label: 'Vor- und Nachname'},
         {name: 'email', required: true, label: 'E-Mail', type: 'email'},
         {name: 'street', required: true, label: 'Straße'},
@@ -35,7 +46,7 @@ export class FormComponent {
         {name: 'allergies', label: 'Allergien / Unverträglichkeiten', type: 'textarea'},
         {name: 'fears', label: 'Ängste / Phobien', type: 'textarea', hint: 'Hier können zum Beispiel Dinge wie "Höhenangst" eingetragen werden, welche das Spiel auf der Burgruine für dich einschränken könnten.'},
         {name: 'birthday', required: true, label: 'Geburtstag (DD.MM.YYYY)', type: 'date', min: () => moment('1900-01-01'), max: () => this.maxBirthday},
-        {name: 'npc', label: 'NPC', type: 'checkbox', help: 'Bitte nur nach vorheriger Rücksprache!'},
+        {name: 'npc', label: 'NPC', type: 'checkbox', hint: 'Bitte nur nach vorheriger Rücksprache!'},
         {name: 'itName', required: true, label: 'IT-Name'},
         {name: 'itPowers', required: false, label: 'Charakter-Besonderheiten', hint: `Bist du ein Freundschaftsträger der Elemente oder sogar ein Mitray'Kor?`},
         {
@@ -48,7 +59,7 @@ export class FormComponent {
         {
             name: 'room',
             label: 'Ich möchte ein Zimmer mit...',
-            help: 'Wir versuchen allen Wünschen nachzugehen, können aber nichts versprechen.',
+            hint: 'Wir versuchen allen Wünschen nachzugehen, können aber nichts versprechen.',
         },
     ];
 
