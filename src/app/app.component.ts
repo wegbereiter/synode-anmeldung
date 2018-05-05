@@ -1,14 +1,13 @@
 import * as moment from 'moment';
 
-import { Headers, Http, RequestOptions } from '@angular/http';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { map, startWith, switchMap, tap } from 'rxjs/operators';
+import { Observable, interval } from 'rxjs';
+import { startWith, switchMap, tap } from 'rxjs/operators';
 
 import { Component } from '@angular/core';
 import { FormData } from './shared/data';
 import { ImprintDialog } from './imprint/imprintDialog.component';
 import { MatDialog } from '@angular/material';
-import { Observable } from 'rxjs';
 
 @Component({
     selector: 'wb-root',
@@ -53,7 +52,7 @@ export class AppComponent {
     }
 
     public ngOnInit() {
-        this.bedCount$ = Observable.interval(20000).pipe(
+        this.bedCount$ = interval(20000).pipe(
             startWith(0),
             switchMap(() => this.http.get('/api/count')),
             tap(x => console.log(x)),
