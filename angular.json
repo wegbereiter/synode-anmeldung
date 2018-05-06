@@ -33,6 +33,7 @@
               "extractCss": true,
               "namedChunks": false,
               "aot": true,
+              "i18nLocale": "de",
               "extractLicenses": true,
               "vendorChunk": false,
               "buildOptimizer": true,

@@ -9,3 +9,7 @@
 .impressum {
     cursor: pointer;
 }
+
+address :first-child {
+    font-weight: bold;
+}

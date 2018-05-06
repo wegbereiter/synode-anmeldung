@@ -67,7 +67,10 @@ class GoogleApi {
                     console.error('Register error:', error, data);
                     reject(new Error(error));
                 } else {
-                    resolve(rows.length);
+                    resolve({
+                        npc: rows.filter(row => String(row['npc']).toLowerCase() === 'ja').length,
+                        pc: rows.filter(row => String(row['npc']).toLowerCase() !== 'ja').length,
+                    });
                 }
             });
         });

@@ -1,20 +1,36 @@
 import * as moment from 'moment';
 
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, interval } from 'rxjs';
-import { startWith, switchMap, tap } from 'rxjs/operators';
+import { Observable, Subject, interval } from 'rxjs';
+import { startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 
-import { Component } from '@angular/core';
 import { FormData } from './shared/data';
 import { ImprintDialog } from './imprint/imprintDialog.component';
 import { MatDialog } from '@angular/material';
+
+interface Config {
+    npcBeds?: number;
+    pcBeds?: number;
+    minAge?: number;
+    start?: string;
+    end?: string;
+    name?: string;
+    subname?: string;
+    description?: string;
+    type?: string;
+    location?: string[];
+    website?: string;
+    pcPrice?: number;
+    npcPrice?: number;
+}
 
 @Component({
     selector: 'wb-root',
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss'],
 })
-export class AppComponent {
+export class AppComponent implements OnInit, OnDestroy {
     private data: FormData = {
         name: null,
         email: null,
@@ -39,16 +55,17 @@ export class AppComponent {
 
     public isLoading = false;
     public isSuccessful = false;
+    public config: Config = {};
+
+    public onDestroy$ = new Subject();
     public bedCount$: Observable<any> = null;
 
-    public minAge = null;
-    public startDate = moment('2018-01-26');
-    public endDate = moment('2018-01-28');
+    public startDate = moment();
+    public endDate = moment();
 
     public error = null;
 
     constructor(private http: HttpClient, private dialog: MatDialog) {
-        this.data.minAge = !this.minAge;
     }
 
     public ngOnInit() {
@@ -57,11 +74,25 @@ export class AppComponent {
             switchMap(() => this.http.get('/api/count')),
             tap(x => console.log(x)),
         )
+
+        this.http
+          .get<Config>("/api/config")
+          .pipe(takeUntil(this.onDestroy$))
+          .subscribe((config) => {
+              this.config = config;
+              this.data.minAge = !config.minAge;
+              this.startDate = moment(config.start);
+              this.endDate = moment(config.end);
+          });
+    }
+
+    public ngOnDestroy() {
+        this.onDestroy$.next();
     }
 
     get maxBirthday() {
-        if (!this.minAge) return null;
-        return this.startDate.clone().subtract(18, 'years');
+        if (!this.config.minAge) return null;
+        return this.startDate.clone().subtract(this.config.minAge, 'years');
     }
 
     public openImprint() {
