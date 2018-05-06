@@ -26,6 +26,7 @@ export class FormComponent {
     @Input() public minAge = null;
     @Input() public maxBirthday = moment();
     @Input() public npc = false;
+    @Input() public itRoom = false;
     @Output() public post = new EventEmitter<FormData>();
     @Output() public privacy = new EventEmitter<null>();
 
@@ -72,6 +73,19 @@ export class FormComponent {
             label: 'Siegel',
             type: 'select',
             options: ['Keines', 'Osten', 'Norden', 'Westen', 'Süden', 'Reich der Rosen'],
+        },
+        {
+            name: 'itBedroom',
+            required: true,
+            label: 'Ein durchgängig bespielter Schlafraum ist...',
+            type: 'select',
+            options: [
+                'unerwünscht',
+                'erwünscht',
+                'erwünscht, aber nicht wenn es durch Dritte (NSC) betreten wird',
+            ],
+            hint: 'Deine persönlichen Gegenstände dürfen niemals entwendet, beschädigt oder bewegt werden.',
+            ignore: () => !this.itRoom,
         },
         {
             name: 'room',

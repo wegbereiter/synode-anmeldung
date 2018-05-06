@@ -24,6 +24,7 @@ interface Config {
     pcPrice?: number;
     npcPrice?: number;
     orga?: Object;
+    itRooms?: boolean;
 }
 
 @Component({

@@ -30,7 +30,8 @@ commander
     .option('--website [string]', 'Location website', process.env.CON_LOCATION_WEBSITE)
     .option('--pcprice [number]', 'PC price', process.env.PRICE_PC)
     .option('--npcprice [number]', 'NPC price', process.env.PRICE_NPC)
-    .option('--orga [name|email]', 'Orga list', process.env.CON_ORGA)
+    .option('--orga [name|email,name2|email2]', 'Orga list', process.env.CON_ORGA)
+    .option('--itrooms [boolean]', 'Orga list', process.env.IT_ROOMS)
     .parse(process.argv);
 
 const app = express();
@@ -54,6 +55,7 @@ const options = {
         .split(',')
         .map(entry => entry.split('|'))
         .map(([name, email]) => ({ name, email })),
+    itRooms: commander.itrooms === 'true',
 };
 
 app.use(bodyParser.json());

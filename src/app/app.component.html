@@ -133,6 +133,7 @@
         [minAge]="config.minAge"
         [maxBirthday]="maxBirthday"
         [npc]="!!config.npcBeds"
+        [itRoom]="!!config.itRooms"
         (post)="sendForm($event)"
         (privacy)="openImprint()"
         *ngIf="!isLoading && !isSuccessful">
