@@ -13,3 +13,7 @@
 address :first-child {
     font-weight: bold;
 }
+
+.orga :not(:last-child)::after {
+    content: ', ';
+}

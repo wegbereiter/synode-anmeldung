@@ -23,6 +23,7 @@ interface Config {
     website?: string;
     pcPrice?: number;
     npcPrice?: number;
+    orga?: Object;
 }
 
 @Component({

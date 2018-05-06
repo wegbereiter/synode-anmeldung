@@ -61,9 +61,11 @@
 
                 <dt>Orga</dt>
                 <dd>
-                    <p>
-                        <a href="mailto:Paul.Maanen@gmail.com">Paul Maanen</a>, <a href="mailto:ludmila.roesch@gmail.com">Ludmila Reimer</a>,<br/>
-                        <a href="mailto:philipp.reimer@rwth-aachen.de">Philipp Reimer</a>
+                    <p class="orga">
+                        <span *ngFor="let orga of config.orga">
+                            <a *ngIf="orga.email; else noLink" href="mailto:{{ orga.email }}">{{ orga.name }}</a>
+                            <ng-template #noLink>{{ orga.name }}</ng-template>
+                        </span>
                     </p>
                 </dd>
 

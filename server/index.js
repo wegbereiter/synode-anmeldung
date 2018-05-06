@@ -30,6 +30,7 @@ commander
     .option('--website [string]', 'Location website', process.env.CON_LOCATION_WEBSITE)
     .option('--pcprice [number]', 'PC price', process.env.PRICE_PC)
     .option('--npcprice [number]', 'NPC price', process.env.PRICE_NPC)
+    .option('--orga [name|email]', 'Orga list', process.env.CON_ORGA)
     .parse(process.argv);
 
 const app = express();
@@ -49,6 +50,10 @@ const options = {
     website: commander.website,
     pcPrice: Number(commander.pcprice),
     npcPrice: Number(commander.npcprice),
+    orga: commander.orga
+        .split(',')
+        .map(entry => entry.split('|'))
+        .map(([name, email]) => ({ name, email })),
 };
 
 app.use(bodyParser.json());
