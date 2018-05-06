@@ -13,6 +13,7 @@ interface FieldDefinition {
     options?: string[];
     min?: () => moment.Moment;
     max?: () => moment.Moment;
+    ignore?: () => boolean;
 }
 
 @Component({
@@ -24,6 +25,7 @@ export class FormComponent {
     @Input() public data: FormData = {};
     @Input() public minAge = null;
     @Input() public maxBirthday = moment();
+    @Input() public npc = false;
     @Output() public post = new EventEmitter<FormData>();
     @Output() public privacy = new EventEmitter<null>();
 
@@ -55,7 +57,13 @@ export class FormComponent {
             hint: 'Beispiel: Höhenangst. Alles, was das Spiel auf der Burgruine für dich einschränken könnten.'
         },
         { name: 'birthday', required: true, label: 'Geburtstag (DD.MM.YYYY)', type: 'date', min: () => moment('1900-01-01'), max: () => this.maxBirthday },
-        { name: 'npc', label: 'NPC', type: 'checkbox', hint: 'Bitte nur nach vorheriger Rücksprache!' },
+        {
+            name: "npc",
+            label: "NPC",
+            type: "checkbox",
+            hint: "Bitte nur nach vorheriger Rücksprache!",
+            ignore: () => !this.npc,
+        },
         { name: 'itName', required: true, label: 'IT-Name' },
         { name: 'itPowers', required: false, label: 'Charakter-Besonderheiten', hint: `Bist du ein Freundschaftsträger der Elemente oder sogar ein Mitray'Kor?` },
         {

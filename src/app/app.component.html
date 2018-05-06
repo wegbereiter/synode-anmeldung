@@ -4,42 +4,20 @@
             <p class="text-center">
                 <img src="assets/symbol.png" style="width: 350px; margin: 15px;" />
             </p>
-            <h1>Blüten des Südens <small>Die fünfte Synode des Ordens der Wegbereiter</small></h1>
+            <h1>{{ config.name }} <small>{{ config.subname }}</small></h1>
 
             <h2>Informationen</h2>
-            <p>
-                Ihr Lieben,
-            </p>
-
-            <p>
-                wir laden zur fünften Synode unseres Ordens. Euch erwartet ein kuscheliges Wochenende mit
-                Hausunterbringung und Vollverpfegung. Keine Geruchsbelästigung durch Untote, kein sanftes
-                "Rakh-Rakh-Rakh" aus dem Garten – nur Zeit für Gespräche, Lehrspiel und Unfug. Eben alles,
-                was einen Plot sonst so gern zersprengt.
-            </p>
-
-            <p>
-                Wie schon angekündigt haben wir eine neue Location in der Mitte Deutschlands. Das
-                neue, von uns bespielte Haus liegt an einem Waldrand und bietet ein weitläufiges
-                Gelände. Es bietet 41 Betten in 11 Zimmern.
-            </p>
-            <p>
-                Der Freitag wird ein gemütliches Beisammensein und der Samstag wird wie gewohnt
-                mit theoretischen und praktischen Lehrstunden gefüllt. Die Lehrstunden werden von
-                Spielern geleitet, der Themenrahmen wird euch dabei nach dem Conquest und
-                frühzeitig vor der Con bekannt gegeben. Wir freuen uns aber auch über Anfragen der
-                Spieler, denen ein besonderes Thema am Herzen liegt.
-            </p>
+            <div [innerHTML]="config.description"></div>
         </div>
 
         <div class="row">
             <dl class="dl-horizontal col-sm-6">
                 <dt>Con-Art</dt>
-                <dd><p>Ambiente</p></dd>
+                <dd><p>{{ config.type }}</p></dd>
                 
-                <ng-container *ngIf="minAge">
+                <ng-container *ngIf="config.minAge">
                     <dt>Mindestalter</dt>
-                    <dd><p>{{ minAge }} Jahre</p></dd>
+                    <dd><p>{{ config.minAge }} Jahre</p></dd>
                 </ng-container>
 
                 <dt>Datum</dt>
@@ -48,20 +26,29 @@
                 <dt>Location</dt>
                 <dd>
                     <address>
-                        <strong><a href="https://www.schlossveldenz.com/" target="_blank">Schloss Veldenz</a></strong><br>
-                        Schlossstraße 0,<br>
-                        54472 Veldenz<br>
+                        <div *ngFor="let location of config.location; let index=index">
+                            <a *ngIf="index === 0 && config.website; else noLink"
+                               [href]="config.website"
+                               target="_blank">
+                               {{ location }}
+                            </a>
+                            <ng-template #noLink>{{ location }}</ng-template>
+                        </div>
                     </address>
                 </dd>
 
                 <dt>Preis</dt>
                 <dd>
                     <p>
-                        ??,00 &euro; inkl. Verpflegung für Spieler<br/>
-                        ??,00 &euro; inkl. Verpflegung für NSCs*<br/>
-                        <small>
-                            * NSC Anmeldungen nur nach vorheriger Rücksprache!
-                        </small>
+                        <span *ngIf="config.pcPrice">
+                            {{ config.pcPrice | currency:'EUR' }} inkl. Verpflegung für Spieler<br/>
+                        </span>
+                        <span *ngIf="config.npcPrice">
+                            {{ config.npcPrice | currency:'EUR' }} inkl. Verpflegung für NSCs*<br/>
+                            <small>
+                                * NSC Anmeldungen nur nach vorheriger Rücksprache!
+                            </small>
+                        </span>
                     </p>
                 </dd>
                 
@@ -79,14 +66,25 @@
                     </p>
                 </dd>
 
-                <dt>Plätze</dt>
+                <dt>Verfügbare Plätze</dt>
                 <dd>
                     <ng-container *ngIf="bedCount$ | async as beds">
-                        <span *ngIf="beds.remaining > 0">Es sind noch <strong>{{ beds.remaining }} von {{ beds.max }}</strong> Betten verfügbar.</span>
-                        <span *ngIf="beds.remaining <= 0">
-                            <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste und rutschen nach
-                            falls es Absagen gibt.
-                        </span>
+                        <div *ngIf="beds.pc && config.pcBeds">
+                            <strong>Spieler: </strong>
+                            <span *ngIf="beds.pc.remaining > 0">{{ beds.pc.remaining }} / {{ config.pcBeds }}</span>
+                            <span *ngIf="beds.pc.remaining <= 0">
+                                <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste und rutschen nach
+                                falls es Absagen gibt.
+                            </span>
+                        </div>
+                        <div *ngIf="beds.npc && config.npcBeds">
+                            <strong>NPC: </strong>
+                            <span *ngIf="beds.npc.remaining > 0">{{ beds.npc.remaining }} / {{ config.npcBeds }}</span>
+                            <span *ngIf="beds.npc.remaining <= 0">
+                                <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste und rutschen nach
+                                falls es Absagen gibt.
+                            </span>
+                        </div>
                     </ng-container>
                     Es gibt mehr Einladungen als Betten.<br/>
                     <strong>Wer sich zuerst anmeldet und bezahlt, bekommt eine kleine Aufmerksamkeit!</strong>
@@ -129,8 +127,9 @@
     </div>
     <wb-register-form 
         [data]="data" 
-        [minAge]="minAge"
+        [minAge]="config.minAge"
         [maxBirthday]="maxBirthday"
+        [npc]="!!config.npcBeds"
         (post)="sendForm($event)"
         (privacy)="openImprint()"
         *ngIf="!isLoading && !isSuccessful">
