@@ -74,7 +74,7 @@
                     <ng-container *ngIf="bedCount$ | async as beds">
                         <div *ngIf="beds.pc && config.pcBeds">
                             <strong>Spieler: </strong>
-                            <span *ngIf="beds.pc.remaining > 0">{{ beds.pc.remaining }} / {{ config.pcBeds }}</span>
+                            <span *ngIf="beds.pc.remaining > 0">{{ beds.pc.remaining }} von {{ config.pcBeds }} verfügbar</span>
                             <span *ngIf="beds.pc.remaining <= 0">
                                 <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste und rutschen nach
                                 falls es Absagen gibt.
@@ -82,7 +82,7 @@
                         </div>
                         <div *ngIf="beds.npc && config.npcBeds">
                             <strong>NPC: </strong>
-                            <span *ngIf="beds.npc.remaining > 0">{{ beds.npc.remaining }} / {{ config.npcBeds }}</span>
+                            <span *ngIf="beds.npc.remaining > 0">{{ beds.npc.remaining }} von {{ config.npcBeds }} verfügbar</span>
                             <span *ngIf="beds.npc.remaining <= 0">
                                 <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste und rutschen nach
                                 falls es Absagen gibt.
