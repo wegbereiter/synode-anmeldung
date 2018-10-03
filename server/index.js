@@ -1,4 +1,4 @@
-require('dotenv').config()
+require('dotenv').config();
 
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -9,13 +9,11 @@ const pathUtil = require('path');
 const commander = require('commander');
 const GoogleApi = require('./googleApi');
 
-
 commander
     .version('1.0.0')
     .option('-p, --port [port]', 'Port', process.env.PORT || 80)
     .option('-s, --sheet [sheetId]', 'The ID for the spread sheet', process.env.SHEET)
-    .option('-u, --user [userEmail]', 'The E-Mail for the google API user', process.env.GOOGLE_USER)
-    .option('-k, --key [privateKey]', 'The private key for the google API user', process.env.GOOGLE_KEY)
+    .option('-k, --key [key]', 'The private key for the google API user', process.env.GOOGLE_KEY)
     .option('-d, --dir [path]', 'The path to the application directory', process.env.DIRECTORY)
     .option('-b, --pcs [number]', 'The maximum number of pc beds', process.env.BEDS_PC || 0)
     .option('-n, --npcs [number]', 'The maximum number of npc beds', process.env.BEDS_NPC || 0)
@@ -57,6 +55,7 @@ const options = {
         .map(entry => entry.split('|'))
         .map(([name, email]) => ({ name, email })),
     itRooms: commander.itrooms === 'true',
+    fears: commander.fears === 'true',
 };
 
 app.use(bodyParser.json());
@@ -65,12 +64,11 @@ app.get('/api/config', (req, res) => {
     res.status(200).json(options);
 });
 
-if (commander.key && commander.user && commander.sheet) {
+if (commander.key && commander.sheet) {
     const key = JSON.parse(commander.key);
-    const email = commander.user;
     const sheetId = commander.sheet;
 
-    const api = new GoogleApi({client_email: email, private_key: key}, sheetId);
+    const api = new GoogleApi(key, sheetId);
 
     app.post('/api/register', (req, res) => {
         api.authenticate()
@@ -82,10 +80,12 @@ if (commander.key && commander.user && commander.sheet) {
     app.get('/api/count', (req, res) => {
         api.authenticate()
             .then(() => api.countRows())
-            .then(count => res.status(200).json({
-                pc: { current: count.pc, remaining: options.pcBeds - count.pc },
-                npc: { current: count.npc, remaining: options.npcBeds - count.npc },
-            }))
+            .then(count =>
+                res.status(200).json({
+                    pc: { current: count.pc, remaining: options.pcBeds - count.pc },
+                    npc: { current: count.npc, remaining: options.npcBeds - count.npc },
+                }),
+            )
             .catch(e => res.status(500).json({ message: e.message }));
     });
 } else {
@@ -95,10 +95,12 @@ if (commander.key && commander.user && commander.sheet) {
 if (commander.dir) {
     const root = pathUtil.resolve(process.cwd(), commander.dir);
     app.use(compression());
-    app.use(express.static(root, {
-        maxage: '365d',
-    }));
-    app.use(historyApiFallback('index.html', { root }))
+    app.use(
+        express.static(root, {
+            maxage: '365d',
+        }),
+    );
+    app.use(historyApiFallback('index.html', { root }));
 } else {
     console.warn('Warning: no files will be served via this server');
 }
