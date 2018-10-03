@@ -1,13 +1,12 @@
-import * as moment from 'moment';
-
-import { Component, OnDestroy, OnInit } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { Observable, Subject, interval } from 'rxjs';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { MatDialog } from '@angular/material';
+import * as moment from 'moment';
+import { interval, Observable, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
 
-import { FormData } from './shared/data';
 import { ImprintDialog } from './imprint/imprintDialog.component';
-import { MatDialog } from '@angular/material';
+import { FormData } from './shared/data';
 
 interface Config {
     npcBeds?: number;
@@ -25,6 +24,7 @@ interface Config {
     npcPrice?: number;
     orga?: Object;
     itRooms?: boolean;
+    fears?: boolean;
 }
 
 @Component({
@@ -33,7 +33,7 @@ interface Config {
     styleUrls: ['./app.component.scss'],
 })
 export class AppComponent implements OnInit, OnDestroy {
-    private data: FormData = {
+    public data: FormData = {
         name: null,
         email: null,
         street: null,
@@ -67,25 +67,24 @@ export class AppComponent implements OnInit, OnDestroy {
 
     public error = null;
 
-    constructor(private http: HttpClient, private dialog: MatDialog) {
-    }
+    constructor(private http: HttpClient, private dialog: MatDialog) {}
 
     public ngOnInit() {
         this.bedCount$ = interval(20000).pipe(
             startWith(0),
             switchMap(() => this.http.get('/api/count')),
             tap(x => console.log(x)),
-        )
+        );
 
         this.http
-          .get<Config>("/api/config")
-          .pipe(takeUntil(this.onDestroy$))
-          .subscribe((config) => {
-              this.config = config;
-              this.data.minAge = !config.minAge;
-              this.startDate = moment(config.start);
-              this.endDate = moment(config.end);
-          });
+            .get<Config>('/api/config')
+            .pipe(takeUntil(this.onDestroy$))
+            .subscribe(config => {
+                this.config = config;
+                this.data.minAge = !config.minAge;
+                this.startDate = moment(config.start);
+                this.endDate = moment(config.end);
+            });
     }
 
     public ngOnDestroy() {
@@ -117,10 +116,10 @@ export class AppComponent implements OnInit, OnDestroy {
                 this.isLoading = false;
                 this.isSuccessful = true;
             })
-            .catch((res) => {
+            .catch(res => {
                 this.isLoading = false;
                 this.error = res._body;
-                console.log(res)
+                console.log(res);
             });
     }
 }

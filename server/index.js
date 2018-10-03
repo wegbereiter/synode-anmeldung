@@ -31,7 +31,8 @@ commander
     .option('--pcprice [number]', 'PC price', process.env.PRICE_PC)
     .option('--npcprice [number]', 'NPC price', process.env.PRICE_NPC)
     .option('--orga [name|email,name2|email2]', 'Orga list', process.env.CON_ORGA)
-    .option('--itrooms [boolean]', 'Orga list', process.env.IT_ROOMS)
+    .option('--itrooms [boolean]', 'IT rooms select', process.env.IT_ROOMS)
+    .option('--fears [boolean]', 'Fears input field', process.env.FEARS)
     .parse(process.argv);
 
 const app = express();

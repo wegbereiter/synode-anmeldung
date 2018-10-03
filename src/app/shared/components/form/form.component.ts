@@ -27,6 +27,7 @@ export class FormComponent {
     @Input() public maxBirthday = moment();
     @Input() public npc = false;
     @Input() public itRoom = false;
+    @Input() public fears = false;
     @Output() public post = new EventEmitter<FormData>();
     @Output() public privacy = new EventEmitter<null>();
 
@@ -55,12 +56,13 @@ export class FormComponent {
             name: 'fears',
             label: 'Ängste / Phobien',
             type: 'textarea',
-            hint: 'Beispiel: Höhenangst'
+            hint: 'Beispiel: Höhenangst',
+            ignore: () => !this.fears,
         },
         { name: 'birthday', required: true, label: 'Geburtstag (DD.MM.YYYY)', type: 'date', min: () => moment('1900-01-01'), max: () => this.maxBirthday },
         {
             name: "npc",
-            label: "NPC",
+            label: "NSC",
             type: "checkbox",
             hint: "Bitte nur nach vorheriger Rücksprache!",
             ignore: () => !this.npc,
