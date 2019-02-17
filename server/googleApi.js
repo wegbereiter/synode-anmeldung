@@ -1,4 +1,4 @@
-"use strict";
+'use strict';
 
 const GoogleSpreadsheet = require('google-spreadsheet');
 const dateRegExp = /[0-9]{4}-[0-9]{2}-[0-9]{2}/;
@@ -25,6 +25,7 @@ const columns = {
     room: 'Zimmerwunsch',
     accept: 'AGB',
     minAge: 'Mindestalter',
+    comment: 'Kommentar',
 };
 
 class GoogleApi {
@@ -35,7 +36,7 @@ class GoogleApi {
 
     authenticate() {
         return new Promise((resolve, reject) => {
-            this.spreadSheet.useServiceAccountAuth(this.credentials, (error) => {
+            this.spreadSheet.useServiceAccountAuth(this.credentials, error => {
                 if (error) {
                     console.error('Authentication error:', error);
                     reject(new Error(error));
@@ -50,7 +51,7 @@ class GoogleApi {
         const data = this.transformData(person);
         console.info('Register person:', data);
         return new Promise((resolve, reject) => {
-            this.spreadSheet.addRow(1, data, (error) => {
+            this.spreadSheet.addRow(1, data, error => {
                 if (error) {
                     console.error('Register error:', error, data);
                     reject(new Error(error));
@@ -79,7 +80,7 @@ class GoogleApi {
 
     transformData(data) {
         const output = {};
-        Object.keys(columns).forEach((key) => {
+        Object.keys(columns).forEach(key => {
             const targetKey = columns[key];
             output[targetKey] = data[key];
 
@@ -87,10 +88,13 @@ class GoogleApi {
 
             if (output[targetKey] === false) output[targetKey] = 'Nein';
             else if (output[targetKey] === true) output[targetKey] = 'Ja';
-            else if (!output[targetKey].match(dateRegExp)) output[targetKey] = '\'' + output[columns[key]];
+            else if (!output[targetKey].match(dateRegExp))
+                output[targetKey] = "'" + output[columns[key]];
         });
 
-        output['Datum'] = moment().tz('Europe/Berlin').format('DD.MM.YYYY, HH:mm');
+        output['Datum'] = moment()
+            .tz('Europe/Berlin')
+            .format('DD.MM.YYYY, HH:mm');
 
         return output;
     }

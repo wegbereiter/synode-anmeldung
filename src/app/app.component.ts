@@ -4,7 +4,6 @@ import { MatDialog } from '@angular/material';
 import * as moment from 'moment';
 import { interval, Observable, Subject } from 'rxjs';
 import { startWith, switchMap, takeUntil, tap } from 'rxjs/operators';
-
 import { ImprintDialog } from './imprint/imprintDialog.component';
 import { FormData } from './shared/data';
 
@@ -25,6 +24,10 @@ interface Config {
     orga?: Object;
     itRooms?: boolean;
     fears?: boolean;
+    roomRequest?: boolean;
+    npcCatering?: boolean;
+    pcCatering?: boolean;
+    npcPermit?: boolean;
 }
 
 @Component({

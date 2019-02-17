@@ -1,7 +1,5 @@
-import * as moment from 'moment';
-
 import { Component, EventEmitter, Input, Output } from '@angular/core';
-
+import * as moment from 'moment';
 import { FormData } from '../../data';
 
 interface FieldDefinition {
@@ -27,7 +25,9 @@ export class FormComponent {
     @Input() public maxBirthday = moment();
     @Input() public npc = false;
     @Input() public itRoom = false;
+    @Input() public roomRequest = false;
     @Input() public fears = false;
+    @Input() public npcPermit = false;
     @Output() public post = new EventEmitter<FormData>();
     @Output() public privacy = new EventEmitter<null>();
 
@@ -42,7 +42,7 @@ export class FormComponent {
         {
             name: 'licensePlate',
             label: 'KFZ-Kennzeichen',
-            hint: 'Nur erforderlich, wenn du mit deinem eigenen PKW anreist.'
+            hint: 'Nur erforderlich, wenn du mit deinem eigenen PKW anreist.',
         },
         {
             name: 'diet',
@@ -59,16 +59,28 @@ export class FormComponent {
             hint: 'Beispiel: Höhenangst',
             ignore: () => !this.fears,
         },
-        { name: 'birthday', required: true, label: 'Geburtstag (DD.MM.YYYY)', type: 'date', min: () => moment('1900-01-01'), max: () => this.maxBirthday },
         {
-            name: "npc",
-            label: "NSC",
-            type: "checkbox",
-            hint: "Bitte nur nach vorheriger Rücksprache!",
+            name: 'birthday',
+            required: true,
+            label: 'Geburtstag (DD.MM.YYYY)',
+            type: 'date',
+            min: () => moment('1900-01-01'),
+            max: () => this.maxBirthday,
+        },
+        {
+            name: 'npc',
+            label: 'NSC',
+            type: 'checkbox',
+            hint: this.npcPermit ? 'Bitte nur nach vorheriger Rücksprache!' : null,
             ignore: () => !this.npc,
         },
         { name: 'itName', required: true, label: 'IT-Name' },
-        { name: 'itPowers', required: false, label: 'Charakter-Besonderheiten', hint: `Bist du ein Freundschaftsträger der Elemente oder sogar ein Mitray'Kor?` },
+        {
+            name: 'itPowers',
+            required: false,
+            label: 'Charakter-Besonderheiten',
+            hint: `Bist du ein Freundschaftsträger der Elemente oder sogar ein Mitray'Kor?`,
+        },
         {
             name: 'sigil',
             required: true,
@@ -86,24 +98,30 @@ export class FormComponent {
                 'erwünscht',
                 'erwünscht, aber nicht wenn es durch Dritte (NSC) betreten wird',
             ],
-            hint: 'Deine persönlichen Gegenstände dürfen niemals entwendet, beschädigt oder bewegt werden.',
+            hint:
+                'Deine persönlichen Gegenstände dürfen niemals entwendet, beschädigt oder bewegt werden.',
             ignore: () => !this.itRoom,
         },
         {
             name: 'room',
             label: 'Ich möchte ein Zimmer mit...',
             hint: 'Wir versuchen allen Wünschen nachzugehen, können aber nichts versprechen.',
+            ignore: () => !this.roomRequest,
+        },
+        {
+            name: 'comment',
+            label: 'Sonstige Anmerkungen',
+            type: 'textarea',
         },
     ];
 
     public sendForm() {
         const normalized = {};
-        Object.keys(this.data).forEach((key) => {
+        Object.keys(this.data).forEach(key => {
             const field = <any>this.fields.filter(field => field.name === key).pop();
             if (field && field.type === 'checkbox') {
                 normalized[key] = !!this.data[key];
-            }
-            else normalized[key] = this.data[key];
+            } else normalized[key] = this.data[key];
         });
         this.post.emit(normalized);
     }

@@ -4,7 +4,8 @@
             <p class="text-center">
                 <img src="assets/symbol.png" style="width: 350px; margin: 15px;" />
             </p>
-            <h1>{{ config.name }}
+            <h1>
+                {{ config.name }}
                 <small>{{ config.subname }}</small>
             </h1>
 
@@ -27,14 +28,21 @@
 
                 <dt>Datum</dt>
                 <dd>
-                    <p>{{ startDate.format('DD.MM.YYYY') }} &ndash; {{ endDate.format('DD.MM.YYYY') }}</p>
+                    <p>
+                        {{ startDate.format('DD.MM.YYYY') }} &ndash;
+                        {{ endDate.format('DD.MM.YYYY') }}
+                    </p>
                 </dd>
 
                 <dt>Location</dt>
                 <dd>
                     <address>
-                        <div *ngFor="let location of config.location; let index=index">
-                            <a *ngIf="index === 0 && config.website; else noLink" [href]="config.website" target="_blank">
+                        <div *ngFor="let location of config.location; let index = index">
+                            <a
+                                *ngIf="index === 0 && config.website; else noLink"
+                                [href]="config.website"
+                                target="_blank"
+                            >
                                 {{ location }}
                             </a>
                             <ng-template #noLink>{{ location }}</ng-template>
@@ -46,14 +54,16 @@
                 <dd>
                     <p>
                         <span *ngIf="config.pcPrice">
-                            {{ config.pcPrice | currency:'EUR' }} inkl. Verpflegung für Spieler
-                            <br/>
+                            {{ config.pcPrice | currency: 'EUR' }}
+                            <span *ngIf="config.pcCatering">inkl. Verpflegung für Spieler</span>
+                            <br />
                         </span>
                         <span *ngIf="config.npcPrice">
-                            {{ config.npcPrice | currency:'EUR' }} inkl. Verpflegung für NSCs*
-                            <br/>
-                            <small>
-                                * NSC Anmeldungen nur nach vorheriger Rücksprache!
+                            {{ config.npcPrice | currency: 'EUR' }}
+                            <span *ngIf="config.npcCatering">inkl. Verpflegung für NSCs</span>
+                            <br />
+                            <small *ngIf="config.npcPermit">
+                                NSC Anmeldungen nur nach vorheriger Rücksprache!
                             </small>
                         </span>
                     </p>
@@ -70,7 +80,9 @@
                 <dd>
                     <p class="orga">
                         <span *ngFor="let orga of config.orga">
-                            <a *ngIf="orga.email; else noLink" href="mailto:{{ orga.email }}">{{ orga.name }}</a>
+                            <a *ngIf="orga.email; else noLink" href="mailto:{{ orga.email }}">{{
+                                orga.name
+                            }}</a>
                             <ng-template #noLink>{{ orga.name }}</ng-template>
                         </span>
                     </p>
@@ -78,31 +90,35 @@
 
                 <dt>Verfügbare Plätze</dt>
                 <dd>
-                    <ng-container *ngIf="bedCount$ | async as beds">
+                    <ng-container *ngIf="(bedCount$ | async) as beds">
                         <div *ngIf="beds.pc && config.pcBeds">
                             <strong>Spieler: </strong>
-                            <span *ngIf="beds.pc.remaining > 0">{{ beds.pc.remaining }} von {{ config.pcBeds }} verfügbar</span>
+                            <span *ngIf="beds.pc.remaining > 0">
+                                {{ beds.pc.remaining }} von {{ config.pcBeds }} verfügbar
+                            </span>
                             <span *ngIf="beds.pc.remaining <= 0">
-                                <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste
-                                und rutschen nach falls es Absagen gibt.
+                                <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen
+                                landen auf der Warteliste und rutschen nach falls es Absagen gibt.
                             </span>
                         </div>
                         <div *ngIf="beds.npc && config.npcBeds">
                             <strong>NSC: </strong>
-                            <span *ngIf="beds.npc.remaining > 0">{{ beds.npc.remaining }} von {{ config.npcBeds }} verfügbar</span>
+                            <span *ngIf="beds.npc.remaining > 0">
+                                {{ beds.npc.remaining }} von {{ config.npcBeds }} verfügbar
+                            </span>
                             <span *ngIf="beds.npc.remaining <= 0">
-                                <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen landen auf der Warteliste
-                                und rutschen nach falls es Absagen gibt.
+                                <strong>Alle Plätze wurden reserviert.</strong> Weitere Anmeldungen
+                                landen auf der Warteliste und rutschen nach falls es Absagen gibt.
                             </span>
                         </div>
                     </ng-container>
-                    Es gibt mehr Einladungen als Plätze.
-                    <br/>
-                    <strong>Wer sich zuerst anmeldet und bezahlt, bekommt eine kleine Aufmerksamkeit!</strong>
                 </dd>
             </dl>
             <div class="col-sm-6 text-right">
-                <a href="https://www.live-adventure.de/de/spielwelt-medien/weitere-veranstaltungen/siedlercons" target="_blank">
+                <a
+                    href="https://www.live-adventure.de/de/spielwelt-medien/weitere-veranstaltungen/siedlercons"
+                    target="_blank"
+                >
                     <img src="assets/mythodea_siegel.png" />
                 </a>
             </div>
@@ -120,9 +136,10 @@
         </div>
         <div class="panel-body">
             <p>
-                Wir haben deine Anmeldung erhalten und werden sie bearbeiten. Du erhälst dann eine E-Mail mit den Kontodaten für die Überweisung
-                oder eine Information zu deinem Platz in der Warteliste von uns. Ab dem erhalt der E-Mail hast du 14 Tage
-                Zeit um den Betrag zu überweisen oder dein Platz wird wieder vergeben.
+                Wir haben deine Anmeldung erhalten und werden sie bearbeiten. Du erhälst dann eine
+                E-Mail mit den Kontodaten für die Überweisung oder eine Information zu deinem Platz
+                in der Warteliste von uns. Ab dem erhalt der E-Mail hast du 14 Tage Zeit um den
+                Betrag zu überweisen oder dein Platz wird wieder vergeben.
             </p>
         </div>
     </div>
@@ -133,11 +150,25 @@
         <div class="panel-body">
             <p>Folgender Fehler ist aufgetreten:</p>
             <blockquote>{{ error }}</blockquote>
-            <p>Bitte versuche es erneut oder benachrichtige die Orga wenn der Fehler weiterhin auftritt!</p>
+            <p>
+                Bitte versuche es erneut oder benachrichtige die Orga wenn der Fehler weiterhin
+                auftritt!
+            </p>
         </div>
     </div>
-    <wb-register-form [data]="data" [minAge]="config.minAge" [maxBirthday]="maxBirthday" [npc]="!!config.npcBeds" [itRoom]="!!config.itRooms" [fears]="!!config.fears"
-        (post)="sendForm($event)" (privacy)="openImprint()" *ngIf="!isLoading && !isSuccessful">
+    <wb-register-form
+        [data]="data"
+        [minAge]="config.minAge"
+        [maxBirthday]="maxBirthday"
+        [npc]="!!config.npcBeds"
+        [itRoom]="!!config.itRooms"
+        [fears]="!!config.fears"
+        [roomRequest]="!!config.roomRequest"
+        [npcPermit]="!!config.npcPermit"
+        (post)="sendForm($event)"
+        (privacy)="openImprint()"
+        *ngIf="!isLoading && !isSuccessful"
+    >
     </wb-register-form>
 
     <p>

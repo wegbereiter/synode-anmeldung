@@ -31,6 +31,10 @@ commander
     .option('--orga [name|email,name2|email2]', 'Orga list', process.env.CON_ORGA)
     .option('--itrooms [boolean]', 'IT rooms select', process.env.IT_ROOMS)
     .option('--fears [boolean]', 'Fears input field', process.env.FEARS)
+    .option('--roomrequest [boolean]', 'Room request input field', process.env.ROOM_REQUEST)
+    .option('--npccatering [boolean]', 'NPC catering', process.env.NPC_CATERING)
+    .option('--pccatering [boolean]', 'PC catering', process.env.PC_CATERING)
+    .option('--npcpermit [boolean]', 'NPCs need a permit', process.env.NPC_PERMIT)
     .parse(process.argv);
 
 const app = express();
@@ -56,6 +60,10 @@ const options = {
         .map(([name, email]) => ({ name, email })),
     itRooms: commander.itrooms === 'true',
     fears: commander.fears === 'true',
+    roomRequest: commander.roomrequest === 'true',
+    npcCatering: commander.npccatering === 'true',
+    pcCatering: commander.pccatering === 'true',
+    npcPermit: commander.npcpermit === 'true',
 };
 
 app.use(bodyParser.json());
