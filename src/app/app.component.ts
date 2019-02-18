@@ -56,6 +56,7 @@ export class AppComponent implements OnInit, OnDestroy {
         room: null,
         accept: false,
         minAge: true,
+        comment: null,
     };
 
     public isLoading = false;

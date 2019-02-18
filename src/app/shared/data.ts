@@ -18,4 +18,5 @@ export interface FormData {
     room?: string;
     accept?: boolean;
     minAge?: boolean;
+    comment?: string;
 }
