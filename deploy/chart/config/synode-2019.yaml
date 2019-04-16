@@ -1,0 +1,40 @@
+sheet: 11_5Y4qJoqoLqQzSVCKqpVu0qzA_yiyYIVRImyL8H0EE
+bedsPc: "20"
+bedsNpc: "10"
+minAge: "18"
+start: 2018-01-26
+end: 2018-01-28
+name: Unnagor Val
+subName: Die fünfte Synode des Ordens der Wegbereiter
+description: |-
+    <h1>DIES IST NUR EIN TEST SYNODE!</h1>
+    <p>Ihr Lieben,</p>
+    <p>
+        wir laden zur fünften Synode unseres Ordens. Euch erwartet ein kuscheliges Wochenende
+        mit Hausunterbringung und Vollverpfegung. Keine Geruchsbelästigung durch Untote, kein sanftes
+        "Rakh-Rakh-Rakh" aus dem Garten – nur Zeit für Gespräche, Lehrspiel und Unfug. Eben alles,
+        was einen Plot sonst so gern zersprengt.
+    </p>
+    <p>
+        Wie schon angekündigt haben wir eine neue Location in der Mitte Deutschlands. Das neue, von
+        uns bespielte Haus liegt an einem Waldrand und bietet ein weitläufiges Gelände. Es bietet
+        41 Betten in 11 Zimmern. </p> <p> Der Freitag wird ein gemütliches Beisammensein und der
+        Samstag wird wie gewohnt mit theoretischen und praktischen Lehrstunden gefüllt. Die Lehrstunden
+        werden von Spielern geleitet, der Themenrahmen wird euch dabei nach dem Conquest und frühzeitig
+        vor der Con bekannt gegeben. Wir freuen uns aber auch über Anfragen der Spieler, denen ein
+        besonderes Thema am Herzen liegt.
+    </p>
+type: Ambiente
+location: |-
+    Gruppenhaus Eppe
+    Aarbergstraße 149,
+    34497 Korbach
+locationWebsite: http://www.google.de
+orga: CON_ORGA
+pricePc: "75"
+priceNpc: "40"
+hasItRooms: "true"
+allowRoomRequests: "false"
+hasNpcCatering: "true"
+hasPcCatering: "false"
+requireNpcPermit: "false"

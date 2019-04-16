@@ -1,0 +1,30 @@
+{{- if .Values.ingress.enabled -}}
+{{- $host := (print (include "chart.name" .) "." .Values.ingress.host) -}}
+{{- $fullName := include "chart.fullname" . -}}
+apiVersion: extensions/v1beta1
+kind: Ingress
+metadata:
+  name: {{ $fullName }}
+  labels:
+    app.kubernetes.io/name: {{ include "chart.name" . }}
+    helm.sh/chart: {{ include "chart.chart" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}
+    app.kubernetes.io/managed-by: {{ .Release.Service }}
+  {{- with .Values.ingress.annotations }}
+  annotations:
+    {{- toYaml . | nindent 4 }}
+  {{- end }}
+spec:
+  tls:
+    - hosts:
+        - {{ $host | quote }}
+      secretName: {{ $host | replace "." "-" }}
+  rules:
+    - host: {{ $host }}
+      http:
+        paths:
+          - path: ""
+            backend:
+              serviceName: {{ $fullName }}
+              servicePort: http
+{{- end }}

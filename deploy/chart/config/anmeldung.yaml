@@ -1,0 +1,67 @@
+sheet: 1sNy_b6ybxa5q0sosPHELd8NICqf223Cth0ppAVwOZh8
+bedsPc: "40"
+bedsNpc: "55"
+minAge: "18"
+start: 2019-10-04
+end: 2019-10-06
+name: Blüten des Südens
+subName: Tin´ralan or thenan
+type: Abenetuer
+description: |-
+    <blockquote>
+        <p>Es begann mit einem Brief, würde man später tuscheln...</p>
+        <p>Die Expedition im letzten Herbst war ein Desaster gewesen – Pallas Kronion beklagte
+        seine Toten, nur eine gerichtete Paktiererin und Geschichten von Pestilenz und Untotem
+        Fleisch brachten die Streiter der Siegel von jener Burg im Umland zurück.</p>
+        <p>Dennoch, man glaubte, es sei vorbei.</p>
+        <p>...</p>
+        <p>Aber nein.</p>
+        <p>Noch im folgenden Winter holten die Geschehnisse das Goldene Reich ein, und machten
+        unmissverständlich klar, wie skrupellos der Feind war. Skrupellos, nicht zu unterschätzen –
+        und nicht zu ignorieren.
+        </p>
+    </blockquote>
+
+    <p>Nach der guten Rückmeldung vom letzten Jahr richten wir unsere 2. Abenteuer-Con aus, und
+    haben uns für das rustikale Ambiente des Nordgaard-Geländes entschieden.</p>
+
+    <p>OT erwartet euch ein weitläufiges Spielgebiet mit dichtem Wald, satter Wiese und einem
+    echten Dorf aus von Hand gebauten Erdhütten, die komplett IT bespielbar sind, und in denen
+    auch übernachtet werden kann.</p>
+
+    <p>Was euch IT erwartet, wird an dieser Stelle nicht verraten – Hinweise werdet ihr zur rechten
+    Zeit im Südforum und in der Facebook-Veranstaltung finden können. Nur soviel: Es geht gegen das
+    Untote Fleisch.</p>
+
+    <h2>Zur Unterbringung</h2>
+    <h3>SCs</h3>
+    <p>Unterbringung erfolgt in selbst mitgebrachten Zelten. Zusätzlich gibt es Hüttenpl√§tze im Dorf,
+    die 24h intime bespielt werden, sollte ein solcher Platz für euch interessant sein, gebt dies bitte
+    bei eurer Anmeldung mit an - besonders wenn es euch nicht möglich ist, ein eigenes Zelt mitzubringen.</p>
+
+    <p>SC verpflegen sich selbst, allerdings wird es die Möglichkeit geben gegen IT-Kupfer kalte Snacks und
+    heißen Kaffee und Tee zu bekommen. Bitte bedenkt, dieses Angebot ist nicht als Mahlzeit zu verstehen und
+    nicht dazu gedacht SCs wirklich satt zu machen!</p>
+
+    <p>Es gibt im Dorf Biotoiletten und ein Badehaus mit Heißwasser-Duschen.</p>
+
+    <h3>NSCs</h3>
+    <p>Unterbringung erfolgt in selbst mitgebrachten Zelten; zusätzlich wird es ein Aufenthaltszelt geben.
+    Außerdem gibt es Hüttenplätze im Dorf, die 24h intime bespielt werden, sollte ein solcher Platz für euch
+    interessant sein, gebt dies bitte bei eurer Anmeldung mit an.</p>
+    <p>Sollte euer einziges Problem im Zelt bestehen, meldet euch bitte bei der Orga; wir haben ein paar
+    Plätze in der Rückhand.</p>
+    <p>Die NSCs sind warm vollverpflegt.</p>
+location: |-
+    Larpdorf Nordgaard
+    49419 Wagenfeld
+locationWebsite: http://www.larporga.de/epages/80063121.sf/de_DE/?ObjectPath=/Shops/80063121/Categories
+orga: Ludmila Reimer|ludmila.roesch@gmail.com,Karin Maanen|karin.maanen@rwth-aachen.de,Philipp Reimer|philipp.reimer@rwth-aachen.de,Janine Schmitz|jschm112@smail.uni-koeln.de
+pricePc: "60"
+priceNpc: "20"
+hasItRooms: "true"
+allowRoomRequests: "false"
+hasNpcCatering: "true"
+hasPcCatering: "false"
+requireNpcPermit: "false"
+hasFearCheck: "false"

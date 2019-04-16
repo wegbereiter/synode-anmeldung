@@ -1,0 +1,48 @@
+# Default values for chart.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+node: docker-1
+replicaCount: 1
+
+image:
+    repository: wegbereiter/synode-anmeldung
+    tag: master
+    pullPolicy: Always
+
+nameOverride: 'anmeldung'
+fullnameOverride: ''
+
+settings:
+    sheet: SHEET
+    bedsPc: BEDS_PC
+    bedsNpc: BEDS_NPC
+    minAge: MIN_AGE
+    start: START_DATE
+    end: END_DATE
+    name: CON_NAME
+    subName: CON_NAME_SUB
+    description: CON_DESCRIPTION
+    type: CON_TYPE
+    location: CON_LOCATION
+    locationWebsite: CON_LOCATION_WEBSITE
+    orga: CON_ORGA
+    pricePc: PRICE_PC
+    priceNpc: PRICE_NPC
+    hasItRooms: IT_ROOMS
+    allowRoomRequests: ROOM_REQUEST
+    hasNpcCatering: NPC_CATERING
+    hasPcCatering: PC_CATERING
+    requireNpcPermit: NPC_PERMIT
+    hasFearCheck: FEARS
+
+service:
+    type: ClusterIP
+    port: 80
+
+ingress:
+    enabled: true
+    host: "frozen-bits.de"
+    annotations:
+        certmanager.k8s.io/cluster-issuer: letsencrypt-prod
+        kubernetes.io/tls-acme: '"true"'

@@ -1,0 +1,1 @@
+Open https://{{include "chart.name" .}}.{{.Values.ingress.host }}
