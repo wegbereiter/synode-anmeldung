@@ -1,0 +1,35 @@
+sheet: 1Dp8q0fEqd64rUcEgV-mrpewPMjlY3x8il-cH_ocmfug
+bedsPc: "36"
+bedsNpc: "5"
+minAge: ""
+start: 2020-01-31
+end: 2020-02-02
+name: ?????
+subName: Die siebte Synode der Wegbereiter
+description: |-
+    <p>Ihr Lieben,</p>
+
+    <p>wir laden zur siebten Synode unseres Ordens. Auf dem Feldzug ist viel passiert und es gibt neue Feinde. Andere sind besiegt worden. Unsere Synode jedoch bleibt bestehen. Die Synode bringt euch alljährlich ein kuscheliges Wochenende mit Hausunterbringung und Vollverpflegung. Keine bösen Verfemten, die einem den Tag vermiesen – nur Zeit für Gespräche, Lehrspiel und Unfug. Eben alles, was einen Plot sonst so gern zersprengt.</p>
+
+    <p>Zum dritten Mal findet die Synode im Gruppenhaus Eppe statt. Die Lage am Waldrand bietet nicht nur ein weitläufiges Gelände, sondern auch genügend Privatsphäre, um draußen zu spielen. Das Haus fasst 41 Betten in 11 Zimmern. Dekoration und nicht-brennende IT-Lichtquellen sind gerne gesehen.</p>
+
+    <p>Der Freitag wird ein gemütliches Beisammensein und der Samstag wird wie gewohnt mit theoretischen und praktischen Lehrstunden gefüllt. Die Lehrstunden werden von Spielern geleitet, hier bitten wir um eure frühzeitige Rückmeldung, ob ihr eine Einheit leiten wollt und wie lange ihr dafür einplant. Spontane Lehrstunden sind eher doof, besonders für die Spieler, die die geplanten Lehrstunden leiten. Eine gewisse Grundausstattung für Vorträge und Lehrstunden bringen wir für euch gerne mit.</p>
+
+    <p>Eingeladene Spieler haben bei der Anmeldung Vorrang, die Veranstaltung selbst wird direkt öffentlich ausgeschrieben.</p>
+
+    <p>Eure Ludmila</p>
+type: Ambiente
+location: |-
+    CVJM Gruppenhaus Eppe
+    Aarbergstraße 149,
+    34497 Korbach
+locationWebsite: https://www.ferienwerk.de/h%C3%A4user/deutschland/gruppenhaus-eppe/
+orga: Ludmila Reimer|ludmila.roesch@gmail.com,Karin Maanen|karin.maanen@rwth-aachen.de,Philipp Reimer|philipp.reimer@rwth-aachen.de
+pricePc: "60"
+priceNpc: "20"
+hasItRooms: "true"
+allowRoomRequests: "true"
+hasNpcCatering: "true"
+hasPcCatering: "true"
+requireNpcPermit: "true"
+hasFearCheck: "true"
